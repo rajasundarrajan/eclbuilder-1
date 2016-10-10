@@ -1,0 +1,74 @@
+<window border="normal" apply="org.hpccsystems.dsp.dashboard.controller.NewDashboardController" 
+    title="${labels.hpccConnectionDetails}" closable="true" id="createNewDashboardWindow"
+    forward="onCancel=onClose">
+    
+    <vbox hflex="1" spacing="10px">
+        <hlayout>
+            <vlayout>
+                <vlayout vflex="1" width="300px">
+                    <label>${labels.dashName}</label>
+                    <textbox id="dashboardName" hflex="1"></textbox>    
+                
+                    <label value="${labels.datasource}"/>
+                    <hlayout>
+                        <radiogroup id="datasource">
+                            <radio value="hpcc" label="${labels.hpccCluster}" id="hpccRadio"></radio>
+                            <space></space>
+                            <radio value="staticdata" label="${labels.staticData}" id="staticRadio"></radio>
+                        </radiogroup>
+                    </hlayout>
+                </vlayout>
+                
+                <vlayout id="hpccContainer" visible="false">
+                    <label value="${labels.gcid}" id="gcIdLabelDashboard" />
+                            
+                    <hbox hflex="1">
+                        <textbox hflex="1" id="gcIdDashboard" readonly="true"/>
+                        <button iconSclass="fa fa-search" label="${labels.search}" 
+                                        autodisable="true" tooltiptext="Search for GCID" id="searchPopbtnDashboard"
+                                        onClick="searchInclude.setVisible(true); createNewDashboardWindow.invalidate();"/>
+                    </hbox>
+                    <label value="${labels.hpccConnection}" sclass="h4"/>
+                    <combobox id="connectionList" placeholder="${labels.chooseConnection}" readonly="true"></combobox>
+                    
+                    <hlayout hflex="1" spacing="25px">
+                        <vlayout>
+                            <label value="${labels.dspThorCluster}"/>
+                            <combobox id="thorCluster" readonly="true" width="150px"></combobox>
+                        </vlayout>
+                        
+                        <vlayout>
+                            <label value="${labels.roxieCluster}"/>
+                            <combobox id="roxieCluster" readonly="true" width="150px"></combobox>
+                        </vlayout>
+                    
+                    </hlayout>    
+            <space></space>
+            <hlayout style="float:left">
+                     <checkbox id="convertComposition" label="Convert to composition"  />
+                    </hlayout>                
+                </vlayout>
+
+
+                    
+                <vlayout>
+                        <label id="cloningCompInfo" value="${labels.convertCompWarning }"  sclass="security_settings_warning" visible="false"/>
+                </vlayout>
+
+                
+                <vlayout>
+                    <label id="securitySettingsWarning" value="${labels.securitySettingsCloneWarning }"  sclass="security_settings_warning" visible="false"/>
+                </vlayout>
+            </vlayout>
+            <include visible="false" id="searchInclude" vflex="1" hflex="1" src="ramps/project/searchGCID.zul"/>
+        </hlayout>
+        <space></space>
+        <hlayout style="float:right">
+            <button label="${labels.continueProject} " id="continueBtn" zclass="continue-btn" iconSclass="fa fa-arrow-right"/>
+            <button id="closeProjectDialog" label="${labels.cancel}" iconSclass="fa fa-times">
+            </button>
+        </hlayout>
+
+    </vbox>
+    
+</window>

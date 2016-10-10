@@ -1,0 +1,12 @@
+<zk>
+
+  <div apply="org.hpccsystems.dsp.eclBuilder.controller.ECLBuildReportComposer">
+  
+  <tabbox id="TabboxComp" >
+ 
+    
+    </tabbox>
+  </div>
+  
+  
+</zk>

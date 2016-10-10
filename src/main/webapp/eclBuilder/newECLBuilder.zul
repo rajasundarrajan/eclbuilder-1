@@ -1,0 +1,45 @@
+<window border="normal" apply="org.hpccsystems.dsp.eclBuilder.controller.NewECLBuilderController" 
+	title="${labels.hpccConnectionDetails}" closable="true" id="createNewECLBuilderWindow"
+	forward="onCancel=onClose">
+	
+	<vbox hflex="1" spacing="10px">
+		<hlayout>
+			<vlayout>
+				<vlayout vflex="1" width="300px">
+					<label>${labels.builderName}</label>
+					<textbox id="eclBuilderName" hflex="1"></textbox>	
+				
+					<label value="${labels.datasource}"/>
+				</vlayout>
+				
+				<vlayout id="hpccContainer" visible="true">
+					<label value="${labels.hpccConnection}" sclass="h4"/>
+					<combobox id="connectionList" placeholder="${labels.chooseConnection}" readonly="true"></combobox>
+					
+					<hlayout hflex="1" spacing="25px">
+						<vlayout>
+							<label value="${labels.dspThorCluster}"/>
+							<combobox id="thorCluster" readonly="true" width="150px"></combobox>
+						</vlayout>
+						
+						<vlayout>
+							<label value="${labels.roxieCluster}"/>
+							<combobox id="roxieCluster" readonly="true" width="150px"></combobox>
+						</vlayout>
+					
+					</hlayout>			
+				</vlayout>
+			
+			</vlayout>
+			<include visible="false" id="searchInclude" vflex="1" hflex="1" src="ramps/project/searchGCID.zul"/>
+		</hlayout>
+		<space></space>
+		<hlayout style="float:right">
+			<button label="${labels.continueProject} " id="continueBtn" zclass="continue-btn" iconSclass="fa fa-arrow-right"/>
+			<button id="closeProjectDialog" label="${labels.cancel}" iconSclass="fa fa-times">
+			</button>
+		</hlayout>
+
+	</vbox>
+	
+</window>

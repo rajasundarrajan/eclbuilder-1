@@ -1,0 +1,76 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.admin.controller.AppLogController"
+	vflex="1" id="applogview">
+	<tabbox sclass="innertabbox">
+		<tabs>			
+			<tab label="${labels.configuration}"></tab>
+			<tab label="${labels.viewlogs}" sclass="rightBorder"></tab>
+		</tabs>
+		<tabpanels>			
+			<tabpanel vflex="1" hflex="1" sclass="applogconfig-panel">
+				<vlayout vflex="1" hflex="1">				
+					<vbox style="margin-top:10px">
+						<label value="${labels.chooseLogginglevels}" />						
+						<space></space>
+						<vbox>							
+							<hbox sclass="config-group">
+								<label value="${labels.rootLogger}" />								
+								<textbox id="rootLabel" readonly="true"
+									width="100px" />
+								<combobox id="rootCombo" visible="false" readonly="true"
+									width="100px">
+								</combobox>
+							</hbox>
+						</vbox>
+						<space></space>
+						<vbox>							
+							<hbox sclass="config-group">
+								<label value="${labels.hipieLogger}" />								
+								<textbox id="hipieLabel" readonly="true"
+									width="100px" />
+								<combobox id="hipieCombo" readonly="true"
+									visible="false" width="100px">
+								</combobox>
+							</hbox>
+						</vbox>
+						<space></space>
+						<vbox>							
+							<hbox sclass="config-group">
+								<label value="${labels.dspLogger}" />								
+								<textbox id="dspLabel" readonly="true"
+									width="100px" />
+								<combobox id="dspCombo" visible="false" readonly="true"
+									width="100px">
+								</combobox>
+							</hbox>
+						</vbox>
+						<space></space>
+						<hbox >
+							<button label="${labels.dspSave}" id="saveLevels"
+								disabled="true">
+							</button>
+							<button label="${labels.dspEdit}" id="editLevels"></button>
+						</hbox>
+					</vbox>
+				</vlayout>
+			</tabpanel>
+			<tabpanel sclass="applogview-panel">
+				<vlayout>				
+					<hbox align="center" spacing="10px" style="margin-top:10px;">
+						<label value="${labels.admAppLogFile}" />
+						<combobox id="logFileList"></combobox>
+						<label value="${labels.admAppLogLines}" />
+						<textbox hflex="1" id="noOfLines"></textbox>
+						<button id="refresh"
+							label="${labels.dspRefresh}" />
+					</hbox>
+					<div vflex="1" style="overflow-y: auto;margin-top:10px;">
+						<label pre="true" multiline="true"
+							id="logContent">
+						</label>
+					</div>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>

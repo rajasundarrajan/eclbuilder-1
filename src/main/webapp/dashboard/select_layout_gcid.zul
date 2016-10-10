@@ -1,0 +1,5 @@
+<window id="layoutGcidEditWindow" 
+	title="${labels.selectLayoutGCID}" border="normal" height="350px"  closable="true">	
+	
+	<include id="include" src="ramps/project/searchGCID.zul"/>
+</window>

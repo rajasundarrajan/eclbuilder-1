@@ -1,0 +1,15 @@
+<window title="Error ${requestScope['javax.servlet.error.status_code']}"
+width="400px" border="normal" mode="modal" closable="true">
+
+   <zscript>
+        String _excepMessage = requestScope.get("javax.servlet.error.message");
+        _excepMessage=_excepMessage.indexOf(":")!=-1?_excepMessage.split(":")[1].trim().length()>0?_excepMessage.split(":")[1]:_excepMessage.split(":")[0]:org.zkoss.util.resource.Labels.getLabel("errorruntime");
+    </zscript>   
+ <vbox>
+${labels.unexpectedError}
+        <hbox style="margin-left:auto; margin-right:auto">
+            <button label="Continue" onClick="spaceOwner.detach()"/>
+            <button label="${labels.dspReload}" onClick="Executions.sendRedirect(null)"/>
+        </hbox>
+    </vbox>
+</window>

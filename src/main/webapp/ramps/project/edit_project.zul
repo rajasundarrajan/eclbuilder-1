@@ -1,0 +1,107 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.ramps.controller.CompositionController" vflex="1">
+	<vbox id="vboxContainer" vflex="1" hflex="1">
+		<hbox align="center" hflex="1" spacing="25px" visible="false">
+			<label value="${labels.compositionName}" />
+			<textbox hflex="1" id="compositionName"></textbox>
+		</hbox>
+		<hbox vflex="1" hflex="1" sclass="projectTabPanel" spacing="0">
+			<vlayout style="text-align: center;" vflex="1">
+				<listbox span="true" width="220px" vflex="1" id="flowChart" nonselectableTags="button" droppable="true">
+					<listhead>
+						<listheader label="${labels.flow}" />
+					</listhead>
+
+					<listfoot id="foot">
+						<listfooter hflex="1">
+							<button iconSclass="z-icon-plus"
+								id="addStep" autodisable="true" label="${labels.addStep}" hflex="1" />
+						</listfooter>
+					</listfoot>
+				</listbox>
+			</vlayout>
+
+			<tabbox vflex="1" hflex="1" sclass="sourceTab">
+				<tabs visible="false">
+					<tab id="pluginDetails"></tab>
+					<tab id="pluginSelection"></tab>
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<tabbox sclass="nav_tabs" id="detailsTabbox" hflex="1" vflex="1">
+							<tabs id="tabs">
+								<tab iconSclass="z-icon-th-list" id="propertiesTab" label="${labels.properties}" />
+								<tab iconSclass="z-icon-cog" label="${labels.advancedProperties }" visible="false" />
+								<tab iconSclass="glyphicon glyphicon-th-large" label="${labels.output}" visible="false"/>
+								<tab iconSclass="z-icon-book" label="${labels.help}" visible="false" />
+								<tab iconSclass="z-icon-code" label="${labels.dspSource}"  if="${sessionScope.user.getPermission().getRampsPermission().canViewPluginSource() || sessionScope.user.isGlobalAdmin()}"/>
+								<tab iconSclass="fa fa-file" id="fileInfoTab" label="${labels.fileInformation}" visible="false"/>
+								<tab iconSclass="fa fa-file-text-o"	label="${labels.readMe}" />
+							</tabs>
+							<tabpanels>
+								<tabpanel id="formPanel">
+									<include id="browserInclude" vflex="1"/>
+									<vlayout id="formLayout" vflex="1">
+										<template name="precursorRelation">
+											<hlayout>
+												<label sclass="down-icon fa fa-download"></label>
+												<anchorlayout>
+													<anchorchildren forEach="${relations}">
+														<hlayout>
+															<label sclass="${each.isDatasourceOutput() ? 'fa fa-database' : 'fa fa-puzzle-piece'}"></label>
+															<label sclass="edit-output-label">${each.output}</label>
+														</hlayout> 
+														<label sclass="edit-input-label" >${each.displayName}</label>
+													</anchorchildren>
+												</anchorlayout>
+												<button if="${editable}" iconSclass="z-icon-edit" zclass="plugin-edit-btn img-btn" forward="onClick = formLayout.onEditRelation"></button>
+											</hlayout>
+										</template>
+										<html id="htmlHolder" vflex="1"/>
+									</vlayout>
+									<popup id="globalVarPopup" vflex="1" width="400px" zclass="popup">
+										<listbox id="globalVariablesList" hflex="1">
+											<listhead>
+												<listheader label="Choose a Global variable"></listheader>
+											</listhead>
+										</listbox>										
+									</popup>
+								</tabpanel>
+								<tabpanel id="settingsPanel" visible="false">
+									${labels.settingsPanel}
+								</tabpanel>
+								<tabpanel id="outputPanel" visible="false">
+											${labels.output}
+										</tabpanel>
+								<tabpanel id="decriptionPanel" visible="false">
+									${labels.descriptionPanel}
+								</tabpanel>
+								<tabpanel id="sourcePanel" if="${sessionScope.user.getPermission().getRampsPermission().canViewPluginSource() || sessionScope.user.isGlobalAdmin()}">
+									<label multiline="true" id="pluginSource"></label>
+								</tabpanel>
+								<tabpanel id="fileInfoPanel" visible="false">
+									<include id="contentHolder"/>
+								</tabpanel>
+								<tabpanel sclass="plugin-desc">
+									<label pre="true" multiline="true" id="readMe" />
+								</tabpanel>
+							</tabpanels>
+						</tabbox>
+							
+					</tabpanel>
+					<tabpanel>
+						<include id="addPluginsHolder" vflex="1"></include>	
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+			
+			
+		</hbox>
+		<hbox hflex="1" pack="end" vflex="0">
+			<button id="previous" autodisable="true" label="${labels.previous}" />
+			<button id="validate" autodisable="true" label="${labels.validate}" />
+			<button id="next" autodisable="true" label="${labels.next}" />
+			<button id="addNextStep" autodisable="true" label="${labels.addNextStep}" visible="false" />
+		</hbox>
+	</vbox>
+</div>

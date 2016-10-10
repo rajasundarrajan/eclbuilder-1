@@ -1,0 +1,190 @@
+<?page title="Data Science Portal" contentType="text/html;charset=UTF-8"  id="homePage"?>
+
+<?link rel="stylesheet" type="text/css"    href="/css/bootstrap/css/bootstrap.min.css"?>
+<?link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css"?>
+<?link rel="stylesheet" type="text/css"	href="/css/main.css"?>
+<?link rel="stylesheet" type="text/css"	href="/css/codemirror.css"?>
+
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<zk>
+
+<script>
+function setNonminifiedConfig() {
+  require(["js/Visualization/src/config"], function () {                    
+             requirejs.config({
+       baseUrl: "js/Visualization/src"
+             });
+ });
+ require.config({
+       paths: {
+           "src": "js/Visualization/src"               
+       }
+      }); 
+}  
+
+function setMinifiedConfig() {
+    require.config({
+         paths: {
+             "src": "js/Visualization/dist-amd",                
+             "font-awesome": "js/Visualization/dist-amd/font-awesome/css/font-awesome.min",
+             "amchartsImg": "js/Visualization/dist-amd/img/amcharts/"
+         }
+   });
+
+}       
+</script>
+
+<script type="text/javascript" src="ramps/js/codemirror.js"></script>
+<script type="text/javascript" src="ramps/js/pluginhelper.js"></script>
+<script type="text/javascript" src="ramps/js/sideeffects.js"></script>
+
+<style>
+    .config-tab i {
+        display: none;
+    }
+    
+    .config-tab.configured i {
+        display: initial;
+    }
+</style>
+
+<vlayout height="100%" width="100%" apply="org.hpccsystems.dsp.controller.HomeController"  xmlns:w='client' id="homeWindow">
+    <div sclass="header">
+        <div sclass="logo-group">
+            <combobutton iconSclass="fa fa-cubes" sclass="homeIcon ramps" id="homeIcon" if="${!$composer.isSharedDashboardView()}">
+                <popup id="iconPopup" sclass="ramps-dashboard-popup" action="show: slideDown">
+                    <div sclass="ramps-dashboard-icons">
+                        <vlayout sclass="ramps-vlayout" id="rampsVlayout" if="${sessionScope.user.canAccessRAMPS()}">
+                            <button id="ramps" iconSclass="fa fa-cubes" autodisable="true" zclass="img-btn icon-btn ramps-btn selected" style="padding-left:30px;"></button>
+                            ${labels.dspComposition}
+                        </vlayout>
+                        
+                        <vlayout sclass="dashboard-vlayout" id="dashboardVlayout" if="${sessionScope.user.canAccessDashboard()}">
+                            <button id="dashboard" iconSclass="fa fa-pie-chart" autodisable="true" zclass="img-btn icon-btn dashboard-btn" style="padding-left:35px;"></button>
+                            ${labels.admDashboard}
+                        </vlayout>
+                        
+                        <vlayout sclass="admin-vlayout" id="adminVlayout" if="${sessionScope.user.isGlobalAdmin()}">
+                            <button id="admin" iconSclass="fa fa-cog" autodisable="true" zclass="img-btn icon-btn admin-btn" style="padding-left:35px;"></button>
+                            ${labels.admin}
+	</vlayout>
+						<vlayout sclass="admin-vlayout" id="eclBuilderVlayout">
+							<button id="eclBuilder" iconSclass="fa fa-cog" autodisable="true" zclass="img-btn icon-btn admin-btn" style="padding-left:45px;"></button>
+							${labels.eclBuilder}
+                        </vlayout>
+                    </div>
+                </popup>            
+            </combobutton>            
+            <button if="${$composer.isSharedDashboardView()}" iconSclass="fa fa-pie-chart" autodisable="true" sclass="share_dashboard"/>
+        </div>
+            <label zclass="logo" style="margin-left: 5px">${labels.dsp}</label>
+
+        <div zclass="pull-right">
+            <div sclass="pull-right">
+                <combobutton sclass="main-btn" if="${!$composer.isSharedDashboardView()}" label="${labels.helpMenu}" autodrop="false" iconSclass="fa fa-life-ring" popup="helpList, after_end">
+                    <popup id="helpList" zclass="popup popup-last" action="show: slideDown">
+                        <listbox width="120px" multiple="false" nonselectableTags="*">
+                            <listitem id="about" forward="onClick = helpList.onSelectAbout">
+                                <listcell iconSclass="fa fa-info-circle">
+                                    ${labels.aboutDsp}
+                                </listcell>
+                            </listitem>
+                            <listitem id="wikilink">
+                                <listcell iconSclass="z-icon-compass">
+                                    <a class="menu-btn-link" href="${labels.wikiLink}" target="_blank">
+                                        ${labels.wikiText}
+                                    </a>
+                                </listcell>    
+                            </listitem>
+                        </listbox>
+                    </popup>
+                
+                </combobutton>
+            </div>
+        </div>
+        <div zclass="pull-right">
+            <div sclass="pull-right">
+                <combobutton sclass="main-btn" label="${sessionScope.user.name}" autodrop="false" iconSclass="z-icon-user" popup="settingsList, after_end">
+                    <popup id="settingsList" zclass="setingsListpopup popup" action="show: slideDown">
+                        <listbox width="150px" multiple="false" nonselectableTags="*">
+                            <listitem id="viewProcess" if="${(sessionScope.user.canAccessRAMPS() or sessionScope.user.canAccessDashboard()) and !$composer.isSharedDashboardView()}">
+                                <listcell iconSclass="fa fa-tachometer">View Process</listcell>
+                            </listitem>
+                            <listitem id="logOutLink">
+                                <listcell iconSclass="z-icon-sign-out">Logout</listcell>
+                            </listitem>
+                        </listbox>
+                    </popup>            
+                </combobutton>
+            </div>
+        </div>
+        
+        <div zclass="pull-right">
+            <div sclass="pull-right">
+                <combobutton if="${$composer.canViewCompositionMenu and !$composer.isSharedDashboardView()}" 
+                    sclass="main-btn" label="${labels.create}" autodrop="false" iconSclass="fa fa-bars" popup="compositionMenu, after_center">
+                    <popup id="compositionMenu" zclass="popup" action="show: slideDown">
+                        <listbox width="200px" multiple="false" nonselectableTags="*">
+                            <listitem  id="newRAMPSComposition" >
+                                <listcell iconSclass="fa fa-cubes" label="${labels.newProject}" if="${sessionScope.user.canAccessRAMPS()}"></listcell>
+                            </listitem>
+                            <listitem  id="newDashbaord" >
+                                <listcell iconSclass="fa fa-pie-chart" label="${labels.newDashboard}" if="${sessionScope.user.canAccessDashboard()}"></listcell>
+                            </listitem>
+                        </listbox>
+                    </popup>            
+                </combobutton>
+            </div>
+        </div>
+                
+    </div>    
+    
+    <tabbox id="prespectiveTabbox" vflex="1" class="borderlessTabbox">
+        <tabs visible="false">
+            <tab id="rampsTab"></tab>
+            <tab id="dashboardTab"></tab>
+            <tab id="adminTab"></tab>
+            <tab id="processTab"></tab>
+            <tab id="processDetailTab"></tab>
+            <tab id="shareTab"></tab>
+        </tabs>
+        <tabpanels>
+            <tabpanel>
+                <include id="rampsInclude" width="100%"></include>
+            </tabpanel>
+            <tabpanel>
+                <include id="dashboardInclude" ></include>
+            </tabpanel>
+            <tabpanel>
+                <include id="adminInclude" ></include>
+            </tabpanel>
+            <tabpanel>
+                <tabbox vflex="1">
+                    <tabs sclass="home-tabs">
+                        <tab label="${labels.rampsProcesses}" if="${sessionScope.user.canAccessRAMPS()}"/>
+                        <tab label="${labels.dashboardProcesses}" if="${sessionScope.user.canAccessDashboard()}"/>
+                    </tabs>
+                    <tabpanels>
+                        <tabpanel if="${sessionScope.user.canAccessRAMPS()}">
+                            <include id="processInclude"></include>
+                        </tabpanel>
+                        <tabpanel if="${sessionScope.user.canAccessDashboard()}">
+                            <include id="dashboardProcessInclude"></include>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            </tabpanel>
+            <tabpanel>
+                <include id="processDetailInclude"></include>
+            </tabpanel>
+            <tabpanel>
+                <include id="shareInclude"></include>
+            </tabpanel>
+        </tabpanels>
+    </tabbox>
+    <script id="requireJS"/>
+    <script id="hpccVizJS"/>
+    <script id="hpccVizBundleJS"/> 
+    <script id="hpccVizCommonJS"/>    
+</vlayout>
+</zk>

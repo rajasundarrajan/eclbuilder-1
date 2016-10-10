@@ -1,0 +1,5 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window	border="normal" closable="true"	vflex="1" hflex="1" apply="org.hpccsystems.dsp.dashboard.controller.ViewDashboardController">
+		<caption iconSclass="fa fa-pie-chart" label="${labels.viewDashboard}"/>
+		<include vflex="1" hflex="1" id="viewInclude"></include>
+</window>

@@ -1,0 +1,103 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window
+	id="configContainer" border="normal" width="820px" closable="true" sizable="true" 
+	apply="org.hpccsystems.dsp.ramps.controller.ConfigurationController" sclass="config-window" style="overflow:auto;">
+	<caption iconSclass="z-icon-gears" label="${labels.compositionSettings}"></caption>
+	
+	<vlayout hflex="1" vflex="1" id="vlayout">
+	<hbox sclass="settingsName">
+	Name : 
+	<space></space>
+	<textbox id="titleEdit" />
+	
+	</hbox>
+		<hlayout>
+			<panel width="200px" sclass="settings-panel">
+				<caption iconSclass="z-icon-link" label="${labels.hpccConnection}" />
+				<panelchildren>
+					<vbox vflex="1" spacing="1em">
+						<vbox>
+							<label value="${labels.hpccConnection}"/>
+							<textbox id="connectionDashboard" readonly="true"></textbox>
+						</vbox>	
+						<vbox>	
+							<label value="${labels.dspThorCluster}"/>
+							<textbox id="thorClusterDashboard" readonly="true"></textbox>
+						</vbox>		
+						<vbox>
+							<label value="${labels.roxieCluster}"/>
+							<textbox id="roxieClusterDashboard" readonly="true"></textbox>
+						</vbox>
+	            	</vbox>
+				</panelchildren>
+			</panel>
+			<panel height="230px" hflex="1" sclass="settings-panel">
+				<caption iconSclass="z-icon-code" label="${labels.globalVariables}" />
+				<panelchildren>
+					<grid id="globalVariableGrid" hflex="1" vflex="1">
+						<columns sclass="config-columns">
+							<column label="${labels.dspType}">
+								<combobox id="variableType" hflex="1" readonly="true"></combobox>
+							</column>
+							<column label="${labels.dspName}">
+								<textbox hflex="1" id="variableName">
+								</textbox>
+							</column>
+							<column label="${labels.defaultValue}"
+								id="valueHolder">
+	
+							</column>
+							<column hflex="0" align="center">
+								<button iconSclass="fa fa-plus" id="add">${labels.add}</button>
+							</column>
+						</columns>
+	
+						<rows id="variableRows"></rows>
+	
+					</grid>
+				</panelchildren>
+			</panel>		
+		</hlayout>
+		
+		<hlayout hflex="1">
+			<panel id="roxieServicePanel" vflex="1" width="200px" sclass="settings-panel">
+				<caption iconSclass="z-icon-play" label="Run Configuation" />
+				<panelchildren>
+					<vlayout id="serviceOptions" sclass="service-container">
+						<checkbox sclass="largedata-chkbx" label="${labels.runLargedata}" id="runasLarge"></checkbox>
+						<space></space>
+						<vbox>
+							<label sclass="h4">${labels.dashboardService}</label>
+							<radiogroup id="serviceGroup">
+								<vlayout sclass="dash-radios">
+									<radio id="serviceOverwrite" selected="true" label="${labels.overwrite}"></radio>
+									<radio id="serviceNew" label="${labels.createNew}"></radio>
+									<radio id="serviceCustom" label="${labels.setCustomVersion}"></radio>
+									<textbox id="appendVal" disabled="true" value="1" placeholder="${labels.timeStamp}" sclass="customVersionTxtbx"></textbox>
+								</vlayout>
+							</radiogroup>
+						</vbox>
+					</vlayout>
+				</panelchildren>
+			</panel>
+			
+			<panel height="300px" hflex="1" sclass="security-panel settings-panel" 
+				if="${sessionScope.user.isGlobalAdmin() or $composer.isCompositionOwner}" style="overflow:auto;">
+				<caption iconSclass="z-icon-key" label="${labels.security}" />
+				<panelchildren>
+						<include compositionPermission="${$composer.compositionPermissions}" src="/ramps/project/permissions.zul" ></include>
+				</panelchildren>
+			</panel>
+			
+		</hlayout>
+		
+		
+		<hbox hflex="1" pack="end">  
+			<hbox id="eclHbox" visible="false" hflex="1" pack="start">
+				<checkbox id="keepEcl" sclass="run-checkbox" label="${labels.keepEcl}"/>
+			</hbox>      
+			<button iconSclass="fa fa-floppy-o" label="${labels.dspSave}"  autodisable="true" id="save" />
+			<button iconSclass="fa fa-times" label="${labels.cancel}"  autodisable="true" id="cancel" />
+		</hbox>	
+	</vlayout>
+</window>

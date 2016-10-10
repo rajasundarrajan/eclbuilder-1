@@ -1,0 +1,15 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<listbox vflex="1" id="queryList" apply="org.hpccsystems.dsp.dashboard.controller.QueryBrowserController">
+	<listhead>
+		<listheader label="Select a query"></listheader>
+	</listhead>
+	<listfoot>
+		<listfooter>
+			<label value="${labels.roxieQuery}" sclass="roxiequeryLabel"/>
+			<hlayout sclass="queryListHlayout">
+				<textbox hflex="1" id="selectedQuery" placeholder="${labels.chooseQuery}" readonly="true" style="font-weight:600;"/>
+				<button label="${labels.queryContentsPreview}" id="queryPreview" disabled="true" visible="false"/>
+			</hlayout>
+		</listfooter>
+	</listfoot>
+</listbox>

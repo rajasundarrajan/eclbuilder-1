@@ -1,0 +1,14 @@
+<zk>
+	<window width="300px" title="Create Backup" border="normal">
+		<vlayout style="text-align: center;" >
+			<label value="Create a name for your backup."/>
+			<separator/>
+			
+			 <textbox id="clonedNameTextbox"/>
+			 <div>
+				<button label="${labels.dspSave}" id="saveClone" />
+				<button label="${labels.cancel}" id="cancel" />
+			</div>
+		</vlayout>
+	</window>
+</zk>

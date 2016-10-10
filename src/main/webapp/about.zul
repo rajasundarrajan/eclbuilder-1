@@ -1,0 +1,17 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window title="${labels.aboutDsp}" border="normal" apply="org.hpccsystems.dsp.ramps.controller.AboutController" closable="true">
+	<vlayout>
+		<hlayout>
+			<label value="${labels.dspVersion}   :"/>
+			<label id="dspVersion"/>
+		</hlayout>
+		<hlayout>
+			<label value="${labels.hipieVersion} :"/>
+			<label id="hipieVersion"/>
+		</hlayout>
+		<hlayout>
+			<label value="${labels.vizVersion} :"/>
+			<label id="vizVersion"/>
+		</hlayout>
+	</vlayout>
+</window>

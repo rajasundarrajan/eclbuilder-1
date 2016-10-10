@@ -1,0 +1,65 @@
+<window width="800px" 
+	apply="org.hpccsystems.dsp.ramps.controller.PluginRelationsController" 
+	title="Plugin relations"
+	closable="true">
+<vlayout>
+	   <listbox id="parentBox" model="${$composer.relationsModel}">
+			<template name="model">
+	   			<listitem>
+				<custom-attributes relationIP="${each}"/>
+	   				<listcell>
+	   					<vlayout>
+	   						<hlayout sclass="plugn-relation-heading">
+	   							<label style="font-weight:bold">${forEachStatus.index + 1}.</label>
+	   							<label>Relation: </label>
+	   							<label>${each.getSourcePluginNane()}</label>
+	   							<label sclass="fa fa-long-arrow-right"></label>
+	   							<label>${each.getTargetPluginNane()} </label>
+	   						</hlayout>
+	   						
+		   					<hlayout vflex="1" hflex="1">
+		   						<listbox model="${each.getInputsModel()}" vflex="1" hflex="1" sclass="plugn-relation-inputs">
+		   							<listhead>
+		   								<listheader iconSclass="fa fa-download" label="Inputs"></listheader>
+		   							</listhead>
+		   							<template name="model">
+		   								<listitem>
+		   									<listcell>
+		   										<hlayout>
+		   											<custom-attributes output = "${relationIP.isOutputAvailable(each.key)}" />
+		   											<div sclass="dsinput-label" hflex="1"> ${each.value} </div>
+		   											<div droppable="${output == null}" sclass="${output == null ? 'dropdiv-droppable' : 'dropdiv-dropped'}" 
+		   												forward="onDrop=parentBox.onCatchOutput(${each.key})" style="word-break:break-all" hflex="1">
+		   												<custom-attributes relationIP = "${relationIP}" />
+		   														   												
+		   												<label value="${output != null ? output.getDisplayName() : labels.dropOutput}">
+		   												<custom-attributes relationOutput = "${output}" />
+		   												</label>
+		   												<button iconSclass="fa fa-trash" zclass="img-btn delete_white_btn" style="float:right" visible="${output != null}" forward="onClick=parentBox.onRemoveRelation(${each.key})"></button>
+		   											</div>
+		   										</hlayout>
+		   									</listcell>
+		   								</listitem>		
+		   							</template>
+		   						</listbox>
+		   						
+		   						<listbox model="${each.getOutputsModel()}" vflex="1" hflex="1" sclass="plugn-relation-outputs">
+		   							<listhead>
+		   								<listheader iconSclass="fa fa-upload fa-flip-vertical"  label="Available outputs"></listheader>
+		   							</listhead>
+		   							<template name="model">
+		   								<listitem draggable="true">
+		   									<listcell iconSclass="${each.isDatasource()? 'z-icon-database' : 'z-icon-puzzle-piece'}" label="${each.getDisplayName()}" />
+		   								</listitem>
+		   							</template>
+		   						</listbox>
+		   					</hlayout>
+	   					</vlayout>
+	   				</listcell>
+				</listitem>
+			</template>
+	   </listbox>
+	   
+	   <button id="OkButton"  autodisable="true" label="${labels.ok}" style="float:right"></button>
+</vlayout>
+</window> 

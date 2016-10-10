@@ -1,0 +1,163 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.admin.controller.ClustersController"
+	vflex="1" id="userlogview">
+	<hlayout style="float:right;margin:5px;" id="clusterHlayout">
+		<button iconSclass="z-icon-plus" id="addCluster">
+			${labels.admClusteraddHpcc}
+		</button>
+	</hlayout>
+
+	<vlayout vflex="1" style="clear:both">
+		<grid id="clusterGrid" hflex="1" 
+			model="${$composer.connectionsModel }">
+
+			<columns>
+				<column>${labels.dspName}</column>
+				<column>${labels.dspUserName}</column>
+				<column>${labels.admClusterIPAddress}</column>
+				<column>${labels.admClusterPort}</column>
+				<column>${labels.admPermission}</column>
+				<column>${labels.dspActions}</column>
+			</columns>
+			<template name="model">
+				<row>
+					<label value="${each.label}"></label>
+					<label value="${each.userName}"></label>
+					<label value="${each.serverHost}"></label>
+					<label value="${each.serverPort}"></label>
+					<label value="Public" if="${$composer.isPublicCluster(each.label) }"></label>
+					<label value="Custom" if="${! $composer.isPublicCluster(each.label) and !$composer.isCustomPermissionsEmpty(each.label) }"></label>
+					<label value="Not defined" if="${! $composer.isPublicCluster(each.label) and $composer.isCustomPermissionsEmpty(each.label) }"></label>
+					<button iconSclass="z-icon-edit"
+						forward="onClick = clusterGrid.onEditConnection">
+						${labels.dspEdit}
+					</button>
+				</row>
+			</template>
+		</grid>
+
+		<panel id="editCluster" title="Edit HPCC connection"
+			visible="false" vflex="1" closable="true" hflex="1" >
+			<panelchildren style="overflow:auto;">
+				<grid vflex="1" hflex="1">
+		<rows>
+			<row>
+				<label>${labels.hpccConnectionName}</label>
+				<textbox id="hpccname"></textbox>
+				<label>${labels.admClusterIPAddress}</label>
+				<textbox id="ipaddress"></textbox>
+				<checkbox id="isHttps" value="true"
+					label="${labels.isHttps}"  sclass="repo-public-checkbox z-textbox"/>
+				<checkbox id="allowInvalidCerts" value="true"
+					label="Allow Invalid Certs"  sclass="repo-public-checkbox z-textbox"/>
+			</row>
+			<row spans=",,,,2">
+				<label>${labels.creator}</label>
+				<textbox id="createdBy" disabled="true"></textbox>
+				<label>${labels.dspUserName}</label>
+				<textbox id="username"></textbox>
+				<div id="passwordDiv"></div>
+			</row>
+			<row>
+				<label style="margin-right:39px;">
+					${labels.dspThorCluster}
+				</label>
+				<textbox id="thorcluster"></textbox>
+				<label style="margin-right:44px;">
+					${labels.admClusterPort}
+				</label>
+				<textbox id="port"></textbox>
+				<label>${labels.attributePort}</label>
+				<textbox id="attributesPort"></textbox>
+			</row>
+			<row>
+				<label style="margin-right:32px;">
+					${labels.roxieCluster}
+				</label>
+				<textbox id="roxieCluster"></textbox>
+				<label>${labels.roxieServer}</label>
+				<textbox id="roxieServerHost"></textbox>
+				<label>${labels.roxieInternalServer}</label>
+				<textbox id="roxieInternalServerHost"></textbox>
+			</row>
+			<row>
+				<label style="margin-right:1px;">
+					${labels.roxieServicePort}
+				</label>
+				<textbox id="roxieServicePort"></textbox>
+				<label>${labels.roxieInternalServicePort}</label>
+				<textbox id="roxieInternalServicePort"></textbox>
+				<label>${labels.roxieESPport}</label>
+				<textbox id="roxieEspPort"></textbox>
+			</row>
+
+
+			<row style="vertical-align:top;">
+				<radiogroup id="permissionRadioGroup">
+					<radio value="public" label="PUBLIC" 
+						sclass="permission-public-checkbox"/>					
+					<radio value="custom" label="CUSTOM"
+						sclass="permission-public-checkbox" />
+				</radiogroup>
+				<cell colspan="5" id="permissionDiv" visible="false">
+					<hbox 
+						sclass="admingrouppermissions">
+
+						<listbox id="groupsListbox" rows="6" model="${$composer.groups}"
+							multiple="true" checkmark="true" sclass="admingroup"
+							width="250px" height="200px">
+
+							<listhead>
+								<listheader label="Groups"></listheader>
+							</listhead>
+							<template name="model" var="group">
+								<listitem label="${each}"></listitem>
+							</template>
+						</listbox>						
+						<listbox rows="5" multiple="true"
+							id="usersListbox" sclass="adminpermission" width="250px"
+							height="200px" style="border-top: 1px solid #e3e3e3;background: #ebebeb;pointer-events: none;">
+							<listhead>
+								<listheader label="Users">
+								</listheader>
+							</listhead>
+							<listfoot>
+								<listfooter>
+									<hbox>
+										<bandbox placeholder="Add Users" style="pointer-events: none;"
+											hflex="1" autodrop="true" id="onSearchUsers">
+											<bandpopup width="250px"
+												height="100px" sclass="adduserbandPopup">
+												<listbox vflex="1"
+													id="searchListbox">
+												</listbox>
+											</bandpopup>
+										</bandbox>
+									</hbox>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</hbox>
+				</cell>
+			</row>
+			<row spans="6">
+				<checkbox id="useDefaultCluster" value="true"
+					label="${labels.useDefaultCluster}" sclass="repo-public-checkbox" />
+			</row>
+			<row>
+				<button id="updateCluster">${labels.dspUpdate}</button>
+			</row>
+
+		</rows>
+	</grid>
+
+			</panelchildren>
+		</panel>
+
+	</vlayout>
+
+</div>
+
+
+
+

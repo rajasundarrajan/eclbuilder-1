@@ -1,0 +1,22 @@
+<vlayout vflex="1" hflex="1" apply="org.hpccsystems.dsp.dashboard.controller.widgetconfiguration.ScoredSearchController" sclass="configure-tab-vlayout">
+	<hlayout vflex="1" hflex="1">
+		<listbox vflex="1" width="350px" id="fieldsListbox">
+			<listhead>
+				<listheader label="${labels.fields}"/>
+			</listhead>
+		</listbox>
+		<listbox vflex="1" hflex="1" id="filterListbox" droppable="true">
+			<auxhead sclass="filter_aux_header_new">
+				<auxheader colspan="6" label="Filters"/>
+			</auxhead>
+			<listhead>
+				<listheader label="${labels.columnName }" sclass="filter_list_header"/>
+				<listheader label="${labels.operator}" sclass="filter_list_header"/>
+				<listheader label="${labels.value}" sclass="filter_list_header"/>
+				<listheader label="${labels.modifier}" sclass="filter_list_header"/>
+				<listheader label="${labels.value}" sclass="filter_list_header"/>
+				<listheader label="${labels.dspActions}" sclass="filter_list_header"/>
+			</listhead>
+		</listbox>
+	</hlayout>
+</vlayout>

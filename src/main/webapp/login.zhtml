@@ -1,0 +1,67 @@
+<?page automaticTimeout="false"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:zul="http://www.zkoss.org/2005/zul">
+	<head>
+		<meta charset="utf-8" />
+		<title>${labels.dsp} | ${labels.login}</title>
+
+		<!-- styles -->
+		<link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="css/login.css" />
+	</head>
+
+	<body>
+		<zul:div apply="org.hpccsystems.dsp.ramps.controller.LoginController" id= "loginWin">
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<img src="images/logo.png" alt="HPCC Systems" class="logo" style="width: 300px" />
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+
+				<div id="login-wraper" class="login-form">
+
+					<legend>
+						${labels.signin}
+						<span class="blue">${labels.dsp}</span>
+					</legend>
+
+					<div class="form-group">
+						<label for="account">${labels.dspUserName}</label>
+						<zul:textbox
+							type="text" sclass="form-control" id="account" style="display:inline" />
+					</div>
+
+					<div class="form-group">
+						<label for="password">${labels.password}</label>
+						<zul:textbox type="password" class="form-control" id="password" style="display:inline" />
+					</div>
+
+					<div class="footer" >
+						<zul:label id="message" zclass="label" sclass="warn" value=" " />
+						<zul:hlayout hflex="1" valign="middle">
+							<zul:a iconSclass="fa fa-life-ring" href="${labels.loginHelpLink}" target="_blank"> ${labels.loginHelpText} </zul:a>
+							<div style="width:60px;"></div>
+							<zul:button id="cancel" class="btn btn-primary" label="${labels.reset}" />
+							<zul:button id="login" class="btn btn-success" label="${labels.login}" />
+							
+						</zul:hlayout>
+						
+					</div>
+				</div>
+
+			</div>
+			<footer class="white navbar-fixed-bottom">
+		    	 <div style="float:right; margin: 5px 20px 5px 5px;">
+				      <label for="language">${labels.language}</label>
+					  <zul:listbox id="language" mold="select" style="display:inline; margin-left: 5px;">
+						 <zul:listitem id="listItemEnglish" label="${labels.english}" value="${labels.english}" selected="true"/>
+					  </zul:listbox> 
+				 </div>
+		    </footer>
+		</zul:div>
+	</body>
+</html>

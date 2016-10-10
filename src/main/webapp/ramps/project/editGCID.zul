@@ -1,0 +1,5 @@
+<window id="gcidEditWindow" title="${labels.changeGCID}" border="normal"
+	apply="org.hpccsystems.dsp.ramps.controller.EditGCIDController"
+	height="350px"  closable="true">
+	<include id="searchGCIDInclude" src="ramps/project/searchGCID.zul" />
+</window>

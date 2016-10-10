@@ -1,0 +1,30 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.admin.controller.UIFeaturesController" vflex="1" id="uifeatures">
+	<tabbox vflex="1" hflex="1" orient="left">
+		<tabs width="200px" sclass="rampsTabs">
+			<tab id="uiFeaturesTab" iconSclass="fa fa-list-alt" sclass="bottomBorder">${labels.admMenuUIFeatures}</tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel sclass="compositionTabpanel">
+				<vlayout vflex="1">
+					<grid id="rampsGroupsGrid" hflex="1">
+						<columns>
+							<column label="${labels.admGroups}" />
+							<column label="${labels.listview}" />
+							<column label="${labels.gridview}" />
+							<column label="${labels.defaultView}" />
+							<column label="${labels.mandateGCID}" />
+							<column label="${labels.viewPluginSource}" />
+							<column label="${labels.canImportFile}" />
+							<column label="${labels.keepEcl}" />
+						</columns>
+					</grid>
+					<button id="rampsSave">${labels.dspSave}</button>
+			
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>
+
+

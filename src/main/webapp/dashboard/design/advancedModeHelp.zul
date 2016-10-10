@@ -1,0 +1,21 @@
+<zk xmlns:h="native">
+    <window id="advancedModeHelpModal" title="Advanced Mode Help"
+    apply="org.hpccsystems.dsp.dashboard.controller.AdvancedModeHelpController"
+    closable="false" vflex="1" hflex="1" sclass="interactivityWindow">
+        <vlayout style="text-align: center;" >
+                Advanced mode allows advanced users to use features that are not currently supported by the DSP UI.
+                <separator/>
+                
+                <h:h3>Limitations:</h:h3>
+                <h:ul>
+                    <h:li>Only editing of dude files are currently allowed.</h:li>
+                    <h:li>If you have a layout saved and update the chart in the dud you will also need to update the layout.</h:li>
+                    <h:li>Converting to advanced mode is a one way operation.</h:li>
+                </h:ul>
+            <separator/>
+             <div>
+                <button label="${labels.close}" id="closeBtn" />
+            </div>
+        </vlayout>
+    </window>
+</zk>

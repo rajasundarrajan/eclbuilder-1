@@ -1,0 +1,12 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window title="${labels.dspSave}" width="400px"
+	apply="org.hpccsystems.dsp.ramps.controller.SaveCompositionController"
+	closable="true" id="saveCompositionWindow">
+	<vlayout>
+		<hlayout>
+			<label value="${labels.compositionName}" hflex="1" id="saveLabel"/>
+			<textbox id="compositionName"></textbox>
+		</hlayout>
+		<button id="save"  autodisable="true" label="${labels.dspSave}" style="float:right" />
+	</vlayout>
+</window> 

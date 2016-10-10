@@ -1,0 +1,75 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window border="none" title="${labels.moreInfo}" closable="true" id="infoContainer"
+	apply="org.hpccsystems.dsp.ramps.controller.ProcessInfoController" vflex="1" hflex="1">
+	
+	<vlayout vflex="1" hflex="1">
+	
+		<hbox hflex="1">
+			<label sclass="key-label" value="${labels.workunitID} :"></label>		
+			<a id="wuid"/>		
+			<space></space>
+			<label sclass="key-label" value="${labels.status} :"></label>		
+			<label id="status"></label>		
+			<space></space>
+			<label sclass="key-label" value="${labels.lastRunDate} :"></label>		
+			<label id="lastRunDate"></label>		
+			<space></space>
+			<label sclass="key-label" value="${labels.hpccCluster} :"></label>		
+			<a id="clusterURL" />		
+		</hbox>
+
+	<tabbox id="tabBox" vflex="1" hflex="1">
+		<tabs id="tabs">
+			<tab label="${labels.status }" visible="false"/>
+			<tab id="outputTab" label="${labels.outputs }" />	
+			<tab id="sideEffectTab" label="${labels.sideEffects }" />
+			<tab id="inputTab" label="${labels.input}" />
+		</tabs>
+		<tabpanels>
+			<tabpanel id="statusPanel" sclass="statusPanelWrapper" visible="false">
+				<vbox vflex="1" hflex="1">
+					<hbox pack="end" align="center" width="100%">
+						<hbox id="projectRunningHbox" visible="false">
+							<label value="${labels.projectRunning }" ></label>	
+							<space></space	>
+						</hbox>
+						<button id="restart"  autodisable="true" label="${labels.restart }" visible="false"/>
+						<space></space>
+						<button id="stop"  autodisable="true" label="${labels.stop }" visible="false"/>
+						<space></space>
+					</hbox>
+					<grid id="statusGrid">
+						<columns>
+							<column/>
+						</columns>
+					    <rows>
+					    	<row>
+					    		<label id="statusLabel"></label>
+					    	</row>
+					    </rows>
+					</grid>
+				</vbox>								
+			</tabpanel>
+			<tabpanel id="outputsPanel" sclass="outputsPanelWrapper">
+				<tabbox id="outputs" orient="left" vflex="1">
+				    <tabs width="200px" height="70px">
+				    </tabs>
+				    <tabpanels width="auto">
+				    </tabpanels>
+				</tabbox>				
+			</tabpanel>
+			<tabpanel id="sideeffectsPanel" sclass="sideeffectsPanelWrapper">
+				<tabbox id="sideEffects" orient="left" vflex="1">
+				    <tabs width="200px" height="70px">
+				    </tabs>
+				    <tabpanels width="auto">
+				    </tabpanels>
+				</tabbox>
+			</tabpanel>
+			<tabpanel sclass="inputPanelWrapper">
+				<include id="previewHolder"></include>
+			</tabpanel>
+			</tabpanels>
+		</tabbox>					
+	</vlayout>
+</window>

@@ -1,0 +1,5 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div sclass="noPerspective warning" style="">
+	<label sclass="caption" value="${labels.warning}" /><label value="${labels.warningmessage}"/>
+</div>
+

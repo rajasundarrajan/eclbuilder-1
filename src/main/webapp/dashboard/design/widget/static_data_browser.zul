@@ -1,0 +1,80 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.dashboard.controller.StaticDataBrowserController" vflex="1" hflex="1">
+	<listbox vflex="1" id="fileList" class="white-listboox"
+		model="${$composer.localFiles}"
+		emptyMessage="${labels.dataEmpty}"
+		multiple="false" >
+		<listhead sclass="select-file-head">
+			<listheader>
+					<hlayout hflex="1" class="select-file-label">
+						<label value="${labels.selectaFile}" ></label>
+						<button iconSclass="z-icon-plus" label="${labels.importFile}" popup="uploadPopup, after_end"
+						sclass="import-btn" autodisable="true"/>
+					</hlayout>
+			</listheader>
+		</listhead>
+		<template name="model">
+			<listitem sclass="data-file-browser-item">
+				<listcell iconSclass="z-icon-file" label="${each.fileName}" style="text-align : left;">
+					<button iconSclass="fa fa-trash-o" sclass="btn-close right-btn img-btn z-button" forward="onClick = fileList.onDeleteFile(${each})" > </button>
+				</listcell>
+			</listitem>
+		</template>	
+		<listfoot>
+			<listfooter style="white-space: nowrap;">
+				<label value="${labels.dataFile}" sclass="roxiequeryLabel"/>
+				<textbox hflex="1" id="selectedFile" placeholder="${labels.selectaFile}" readonly="true" style="font-weight:600;width:50%"  />
+			</listfooter>
+		</listfoot>
+	</listbox>
+	<popup width="400px" id="uploadPopup" class="options-popup">
+		<vlayout>
+			<hlayout>
+				File Type
+				<radiogroup id="type">
+					<radio label="JSON" value="JSON" selected="true"></radio>
+					<radio label="Delimited" value="Delimited"></radio>
+				</radiogroup>
+			</hlayout>
+
+                <grid id="dataSetInput">
+                    <columns>
+                        <column></column>
+                        <column></column>
+                    </columns>
+                    <rows>
+                        <row>
+                            Dataset Name
+                            <textbox id="name"></textbox>
+                         </row>
+                    </rows>
+                 </grid>
+
+			<grid id="optionsGrid" visible="false">
+				<columns>
+					<column></column>
+					<column></column>
+				</columns>
+				<rows>
+					
+					<row>
+						Header row <checkbox label="Available" checked="true" disabled="true"></checkbox> 
+					</row>
+					<row>
+						Column Delimiter <textbox id="delimiter" value="," inplace="true"></textbox>
+					</row>
+					<row>
+						Record Delimiter <textbox id="seperator" value="/n" inplace="true"> </textbox>
+					</row>
+					<row>
+						Quote Character <textbox id="quote" value="'" inplace="true"></textbox>
+					</row>
+					<row>
+						Escape Character <textbox id="escape" value="\" inplace="true"></textbox>
+					</row>
+				</rows>
+			</grid>
+			<button  upload="${$composer.getFileSize()}"  iconSclass="fa fa-upload" id="importFile" label="${labels.upload}" sclass="import-btn" autodisable="true" />
+		</vlayout>
+	</popup>
+</div>

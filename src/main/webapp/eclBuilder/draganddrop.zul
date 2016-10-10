@@ -1,0 +1,35 @@
+<window id="joinWindow"  apply="org.hpccsystems.dsp.eclBuilder.controller.DragAndDropController" closable="true"   
+  width="1150px" vflex="1" title="Join Logical Files">
+  <vlayout>
+    <hlayout>
+        <listbox id="left" height="550px" width="300px" style="text-align:left"
+             oddRowSclass="non-odd">
+             <listhead>
+        		<listheader label="Logical Files"/>
+    		</listhead>
+        </listbox>
+        <separator orient="vertical" spacing="10px" />
+        <listbox id="right" height="550px" width="830px" 
+             droppable="true" oddRowSclass="non-odd">
+              <listhead>
+        		<listheader label="LEFT FILE" />
+        		<listheader label="RIGHT FILE"/>
+        		<listheader label="CONDITION"/>
+        		<listheader label="JOIN NAME"/>
+        		<listheader label="ACTION"/>
+        		
+    		</listhead>
+        </listbox>
+    </hlayout>
+     <hlayout style="padding-left:85%">
+     <button id="cancelJoin" label="Cancel"/>
+	<button id="submitButton" label="Submit"/>
+    </hlayout>
+    </vlayout>
+    <style>
+    	td, th {
+    		padding: 0;
+    		text-align: left;
+		}
+	</style>
+</window> 

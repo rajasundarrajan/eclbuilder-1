@@ -1,0 +1,25 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout apply="org.hpccsystems.dsp.ramps.controller.FileContentPreviewController" vflex="1" hflex="1">
+	<grid>
+		<columns>
+			<column width="150px"></column>
+			<column></column>
+		</columns>
+		<rows>
+			<row>
+				<label value="${labels.fileName}"/>
+				<label id="fileName"/>
+			</row>
+			<row>
+				<label value="${labels.fileSize}" width="150px"/>
+				<label id="fileSize"/>
+			</row>
+			<row>
+				<label value="${labels.recordCount}" width="150px"/>
+				<label id="recordCount"/>
+			</row>
+		</rows>
+	</grid>
+		
+	<grid id="contentlist" vflex="1" sclass="gridContent" sizedByContent="true"/>
+</vlayout>

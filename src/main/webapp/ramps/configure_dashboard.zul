@@ -1,0 +1,16 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window id="dashboardContainer" border="normal" closable="true"
+	hflex="1" vflex="1"
+	apply="org.hpccsystems.dsp.ramps.controller.ConfigureDashboardController">
+	
+	<caption iconSclass="fa fa-pie-chart" label="${labels.configureDashboard}"/>
+	<vlayout hflex="1" vflex="1">
+	<include id="include" vflex="1" />
+
+	<hbox hflex="1" align="end">
+		<space hflex="1"></space>	
+		<button label="${labels.dspSave}"  autodisable="true" id="saveDashboardSettings" iconSclass="z-icon-save" sclass="configureSaveBtn"/>
+		<button label="${labels.cancel}" autodisable="true"  id="cancelDashboardSettings" iconSclass="fa fa-times" sclass="configCloseBtn" />
+	</hbox>
+	</vlayout>
+</window>

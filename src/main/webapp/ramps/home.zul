@@ -1,0 +1,114 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.ramps.controller.HomeController" vflex="1" >
+	<tabbox id="homeTabbox" vflex="1">
+		<tabs sclass="home-tabs" width="100% !important">
+			<tab label="${labels.home}" id="homeTab">
+			</tab>
+		</tabs>
+
+		<tabpanels>
+			<tabpanel sclass="grey-background">
+				<vlayout id = "container" vflex="1">
+				<hbox pack="end" hflex="1" spacing="5px">
+					<button id="clearFilter" iconSclass="z-icon-times" autodisable="true" label="${labels.clearFilter}" visible="false"/>
+					<button id="newComposition" iconSclass="z-icon-plus" autodisable="true" class="blue-btn" label="${labels.newComp}" if="${sessionScope.user.canCreate()}"/>
+					<button id="promoteBtn" iconSclass="fa fa-paper-plane" autodisable="true" visible="false" label="${labels.promote}"/>
+					<menubar sclass="sortMenu">
+						<menu label="View" id="viewMenu">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="compoCreatedMenu" iconSclass="fa fa-user"  label="${labels.compoCreated}"></menuitem>
+								<menuitem id="sharedCompoMenu" iconSclass="fa fa-users" label="${labels.sharedCompo}"></menuitem>
+								<menuitem id="favCompomenu" iconSclass="fa fa-star" label="${labels.compoFav}"></menuitem>
+								<menuitem id="mostAccessedCompomenu" iconSclass="fa fa-wifi" label="${labels.mostAccessedCompo}"></menuitem>
+								<menuitem id="allCompoMenu" iconSclass="fa fa-list-ul" label="${labels.allCompo}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+					<menubar sclass="sortMenu" id="sortMenuBar">
+						<menu label="${labels.sort}" id="sortMenu">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="authorItem" iconSclass="fa fa-sort-asc" label="${labels.byAuthor}"></menuitem>
+								<menuitem id="dateItem" iconSclass="fa fa-sort-asc" label="${labels.byDate}"></menuitem>
+								<menuitem id="nameItem" iconSclass="fa fa-sort-asc" label="${labels.dspName}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+					<div align="right">
+						<textbox popup="popup, position=after_end" width="200px" id="textBox" placeholder="${labels.searchProjects}"/>					
+						<span class="glyphicon glyphicon-search" style="position:absolute;right:10px;top:10px;"></span> 
+				        <popup id="popup" width="200px" zclass="popup">	    	
+							<listbox id="listBox" hflex="1" multiple="false" sclass="tableborder-collapse-none" emptyMessage="${labels.noresultsfound}">
+							<listhead id="labelHead" sclass="recent-modified-header">
+								<listheader  label="${labels.recentlyModified}"/>
+				            </listhead>
+							</listbox>	        
+				        </popup>
+					</div>
+				</hbox>
+
+                <grid mold="paging" vflex="1" id="entityList" autopaging="true" visible="false" emptyMessage="${labels.noCompositionAvailable}">
+	             	<columns></columns>
+		           	  <rows></rows>
+				  </grid>
+
+                <anchorlayout id="thumbnailLayout" vflex="1"
+                  	visible="true" apply="org.zkoss.bind.BindComposer"
+                	viewModel="@id('vm') @init('org.hpccsystems.dsp.ramps.controller.ProjectGrid')"
+                	children="@bind(vm.projects)" sclass="gridviewLayout">
+                	<template name="children" var="project">
+
+                		<anchorchildren onClick="@command('selectEntity',entity=project)" 
+                			sclass="gridAnchor" height="270px"
+                					width="250px">
+
+                			<vlayout vflex="1">
+                				<vlayout sclass="gridLayout" vflex="1" hflex="1">
+	                				<hlayout vflex="1" hflex="1">
+                						<listbox if="${not empty project.plugins}" model="@load(project.filteredPlugins)" width="75px">
+                							<template name="model" var="plugin">
+                								<listitem label="@load(plugin.label)"/>
+                							</template>
+                						</listbox>
+	                					<image sclass="myimg" hflex="1">
+	                						<attribute name="onCreate">
+	                							this.self.setSrc("/images/thumbnail/chart.png");
+	                						</attribute>
+	                					</image>
+	                				</hlayout>
+	                				<hlayout class="grid-buttons">
+	                					<button iconSclass="z-icon-edit" zclass="img-btn" style="color:orange;cursor:pointer" tooltiptext="${labels.editProject }" if="${sessionScope.user.canEdit()}" onClick="@command('editProject',gridViewProject=project)"/> 
+	                					<button iconSclass="z-icon-copy" zclass="img-btn" style="color:blue;cursor:pointer" if="${sessionScope.user.canCreate()}" tooltiptext="${labels.cloneProject }" onClick="@command('cloneProject',gridViewProject=project)"/>
+	                					<button iconSclass="z-icon-trash-o" zclass="img-btn"  style="color: red;cursor:pointer"  if="${sessionScope.user.canEdit()}" tooltiptext="${labels.deleteProject }" onClick="@command('deleteProject',gridViewProject=project)"/>
+	                					<button iconSclass="${project.isFavourite ? 'fa fa-star' : 'fa fa-star-o'}" 
+	                						zclass="img-btn img-btn-fav"  style="color: grey;cursor:pointer"  if="${sessionScope.user.canEdit() }" tooltiptext="${labels.favorite}" onClick="@command('favoriteProject',gridViewProject=project)" />
+	                				</hlayout>
+                				</vlayout>
+                				<hlayout>
+                					<label value="@load(project.label)" if="${sessionScope.user.canViewProject()}" tooltiptext="${labels.viewProject }" onClick="@command('viewProject',gridViewProject=project)" style= "cursor:pointer" sclass="h4"/>
+                					<label value="@load(project.label)" if="${! sessionScope.user.canViewProject()}"   sclass="h4"/>
+                					<label value="by " sclass="small"/>
+                					<label value="@load(project.author)" sclass="small" tooltiptext="@load(project.author)"/>
+                				</hlayout>
+                				<hlayout>
+                					<label value="Updated:" sclass="small"/>
+                					<label value="@load(project.getFormattedLastModifiedDate())" sclass="small" />
+                				</hlayout>
+                			</vlayout>
+
+                		</anchorchildren>
+                	</template>
+                </anchorlayout>
+
+                <hlayout sclass="viewSelector">
+                	<radiogroup id="viewSelectRadioGroup" visible="false">
+                		<radio id="toggleGridView" label="${labels.gridview}"
+                			sclass="viewSelectorRadioButton"/>
+                		<radio id="toggleListView" label="${labels.listview}"
+                			sclass="viewSelectorRadioButton"/>
+                	</radiogroup>
+                </hlayout>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>

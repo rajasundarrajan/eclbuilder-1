@@ -1,0 +1,36 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.admin.controller.ViewRepositoryController" vflex="1">
+	<hlayout style="float:right;margin:5px;">
+		<button iconSclass="z-icon-plus"  id="addRepository" disabled="false">${labels.admRepoAddRepo}</button>
+	</hlayout>
+	<vlayout vflex="1" style="clear:both">	
+		<grid id="repositoryGrid" hflex="1" vflex="1" 
+			model="${$composer.repositoryModel }" class="reposListbox">
+
+			<columns>
+				<column label="${labels.admRepoName}"></column>
+				<column label="${labels.admPermission}" visible="false"></column>
+				<column label="${labels.dspActions}"></column>
+			</columns>
+			<template name="model">
+				<row>
+					<label value="${each.repository}"></label>
+					<grid hflex="1" vflex="1"
+						model="${each.permittedUsers}">
+						
+						<template name="model">
+							<row>
+								<label value="${each}"></label>
+							</row>
+							</template>
+					</grid>
+					<hlayout>
+						<button iconSclass="z-icon-edit" forward="onClick = repositoryGrid.onEditRepository" label="${labels.dspEdit}"></button>
+						<button forward="onClick = repositoryGrid.onViewPlugin" label="${labels.admRepoViewPlugins}"></button>
+					</hlayout>
+				</row>
+			</template>
+		</grid>
+	</vlayout>
+</div>
+

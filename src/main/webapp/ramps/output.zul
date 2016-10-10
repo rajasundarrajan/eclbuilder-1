@@ -1,0 +1,58 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div vflex="1" hflex="1" apply="org.hpccsystems.dsp.ramps.controller.OutputController">
+	
+	<vlayout vflex="1" hflex="1">
+		<hlayout id="toolset">
+			
+			<combobutton id="viewToggleButton" visible="false" label="${labels.defaultView}" width="190px" autodrop="true" sclass="view-toggle-btn">
+				<popup zclass="popup">
+					<listbox width="190px" nonselectableTags="*">
+						<listitem>
+							<listcell id="otherViewBtn" label="${labels.personalizedView}"/>
+						</listitem>
+					</listbox>
+				</popup>
+			</combobutton>
+			
+			<space></space>
+			
+			<hlayout id="gcidBox" visible="false">
+				<label value="${labels.layourGCID}" style="vertical-align:center;"/>
+				<combobox id="gcidCombobox" model="${$composer.gcidModel}" readonly="true" />
+			</hlayout>
+			
+			<hbox hflex="1" pack="end">
+				
+				<button sclass="editbtn" iconSclass="z-icon-cogs"
+					label="${labels.dbdLayoutDesignerBtn}" id="editLayout" />
+				
+				<combobutton iconSclass="z-icon-save" id="layoutSave" autodisable="true" label="${labels.saveLayout}" sclass="savelayout-btn" autodrop="false" visible="false">
+					<popup zclass="popup" id="saveLayoutPopup">
+						<listbox width="170px" nonselectableTags="*">
+							<listitem>
+								<listcell id="saveGCIDLayout" label="${labels.saveGCIDBasedLayout}" iconSclass="z-icon-save" />
+							</listitem>
+							<listitem>
+							<listcell id="saveAsDefaultView" label="${labels.saveAsDefaultView}"  iconSclass="z-icon-save" />
+							</listitem>
+							<listitem>
+								<listcell id="saveAsPersonalizedView" label="${labels.saveAsPersonalizedView}"  iconSclass="z-icon-save" />
+							</listitem>
+						</listbox>
+					</popup>
+				</combobutton>
+				
+				<button sclass="editbtn" iconSclass="z-icon-close"
+					label="${labels.closeLayout}" id="closeLayout" visible="false">
+				</button>
+				
+				<button id="editbtn" if="${$composer.canEdit()}" iconSclass="z-icon-cog" sclass="wizard-btn"
+					style="margin-left:5px;" label="${labels.dspEdit}" />
+			</hbox>
+		</hlayout>
+
+		<div id="chartHolder" vflex="1" hflex="1" >
+
+		</div>
+	</vlayout>
+</div>

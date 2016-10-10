@@ -1,0 +1,53 @@
+<div apply="org.hpccsystems.dsp.dashboard.controller.ChartsController"
+	vflex="1" hflex="1">
+	<vbox vflex="1" pack="start" hflex="1">
+		<hlayout vflex="0" sclass="chartlist-header">
+			<label value="${labels.chartNameCaption}" hflex="1"	sclass="h4"	style="line-height:20px;vertical-align:middle;display:inline;font-size:14px;" />
+			<textbox id="chartname" placeholder="${labels.chartName}" focus="true" />
+		</hlayout>
+
+
+		<label value="${labels.selectChart}" hflex="1" sclass="h4"
+			style="line-height:30px;vertical-align:middle;display:inline;font-size:16px;padding-left:5px;" />
+
+		<div vflex="1" hflex="1" style="overflow:auto;">
+			<hlayout>
+				<div sclass="chart-category" hflex="1">
+					<span sclass="hor-line">
+						<span sclass="spriteIcon pie"></span>
+						<label value="Pie &amp; Pyramid" sclass="sprite"/>
+					</span>
+				</div>
+			</hlayout>
+			<anchorlayout id="chartsLayout" sclass="" />
+			<hlayout>				
+				<div sclass="chart-category" hflex="1">
+					<span sclass="hor-line">
+						<span sclass="spriteIcon line"></span>
+						<label value="Line &amp; Area" sclass="sprite"/>
+					</span>
+				</div>
+			</hlayout>
+			<anchorlayout id="chartsLayout1" sclass="" />
+			<hlayout>				
+				<div sclass="chart-category" hflex="1">
+					<span sclass="hor-line">
+						<span sclass="spriteIcon column"></span>
+						<label value="Column &amp; Bar" sclass="sprite"/>
+					</span>
+				</div>
+			</hlayout>
+			<anchorlayout id="chartsLayout2" sclass="" />
+			<hlayout>				
+				<div sclass="chart-category" hflex="1">
+					<span sclass="hor-line">
+						<span sclass="spriteIcon others"></span>
+						<label value="Others" sclass="sprite"/>
+					</span>
+				</div>
+			</hlayout>
+			<anchorlayout id="chartsLayout4" sclass="" />
+
+		</div>
+	</vbox>
+</div>

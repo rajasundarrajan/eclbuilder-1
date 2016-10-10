@@ -1,0 +1,14 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<panel vflex="1" apply="org.hpccsystems.dsp.admin.controller.GroupPermissionController">
+	<caption label="${labels.mbsPermission}" sclass="permissionCaption">
+	</caption>
+	<panelchildren>
+		<grid id="groupPermissionGrid" vflex="1" hflex="1">
+			<columns>
+				<column label="${labels.groupName}"></column>
+				<column label="${labels.permissions}"></column>
+			</columns>
+			<rows id="groupPermissionRows" />
+		</grid>
+	</panelchildren>
+</panel>

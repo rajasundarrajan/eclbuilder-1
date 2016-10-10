@@ -1,0 +1,8 @@
+<window title="Error ${requestScope['javax.servlet.error.status_code']}">
+    Cause: ${requestScope['javax.servlet.error.message']}    
+    
+    <zscript>
+    org.slf4j.LoggerFactory.getLogger("Fatal").error("Error {}",
+        requestScope.get("javax.servlet.error.exception"));
+    </zscript>
+</window>

@@ -1,0 +1,27 @@
+<window
+	apply="org.hpccsystems.dsp.dashboard.controller.AdvancedModeController"
+	closable="false" vflex="1" hflex="1" sclass="interactivityWindow">
+	<vlayout vflex="1">
+		<hlayout vflex="1">
+			<tabbox id="test" vflex="1" hflex="1" class="borderlessTabbox">
+				<tabs>
+					<tab id="dudTab" label="${labels.editDud}"></tab>
+					<tab id="cmpTab" label="${labels.editCmp}"></tab>
+				</tabs>
+			
+				<tabpanels>
+					<tabpanel id="dudTabPanel">
+					   <textbox id="dudTextbox" class="advanced-mode-textbox" multiline="True" tabbable="true" width="" vflex="1" hflex="1"></textbox>
+					</tabpanel>
+					<tabpanel id="cmpTabPanel">
+					   <textbox id="cmpTextbox" class="advanced-mode-textbox" multiline="True" tabbable="true" disabled="true" vflex="1" style="height: 200px" hflex="1"></textbox>
+					</tabpanel>
+				</tabpanels>		
+			</tabbox>
+		</hlayout>
+		
+		<hbox hflex="1" pack="end">
+		  <button label="${labels.dspSave}" iconSclass="z-icon-save" autodisable="true" id="saveDud" sclass="wizard-btn" />
+		</hbox>
+	</vlayout>
+</window>

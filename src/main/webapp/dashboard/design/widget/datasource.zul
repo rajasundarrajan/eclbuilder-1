@@ -1,0 +1,11 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout apply="org.hpccsystems.dsp.dashboard.controller.DatasourceController" vflex="1" hflex="1">
+	<hbox sclass="browserSelector" id="browserSelectorHbox">
+	<label value="${labels.chooseDatasource} " sclass="datasourceLabel"></label>
+	<radiogroup sclass="browserSelectorRadiogroup">
+		<radio id="browseFiles" label="${labels.logicalFiles}"/>
+		<radio id="browseQueries" label="${labels.queries}"/>
+	</radiogroup>
+	</hbox>
+	<include id="browserSelect" vflex="1"/>
+</vlayout>

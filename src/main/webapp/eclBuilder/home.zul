@@ -1,0 +1,89 @@
+<div apply="org.hpccsystems.dsp.eclBuilder.controller.HomeController" vflex="1">
+	
+	<tabbox id="homeTabbox" vflex="1" hflex="1" >
+		<tabs sclass="home-tabs">
+			<tab label="${labels.browsebuilder}" id="homeTab"  >
+			</tab>
+		</tabs>
+
+		<tabpanels>
+			<tabpanel sclass="grey-background">
+			<vlayout vflex="1">
+				
+				<hbox hflex="1" pack="end" spacing="5px">
+					<button id="newEclBuilder" iconSclass="z-icon-plus" autodisable="true" class="purple-btn" label="${labels.newEclBuilder}"/>
+					<button id="moreOptions" iconSclass="z-icon-times" autodisable="true" label="${labels.moreFunctions}" visible="false"/>
+					<menubar sclass="sortMenu" visible="false">
+						<menu label="View" id="viewMenu">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="compoCreatedMenu" iconSclass="fa fa-user" label="${labels.buildersCreatedByMe}"></menuitem>
+								<menuitem id="sharedCompoMenu" iconSclass="fa fa-users" label="${labels.buildersSharedWithMe}"></menuitem>
+								<menuitem id="favCompomenu" iconSclass="fa fa-star" label="${labels.builderFav}"></menuitem>
+								<menuitem id="mostAccessedCompomenu" iconSclass="fa fa-wifi" label="${labels.mostAccessedbuilder}"></menuitem>
+								<menuitem id="allCompoMenu" iconSclass="fa fa-list-ul" label="${labels.allbuilders}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+					<menubar sclass="sortMenu" id="sortMenuBar">
+						<menu label="${labels.sort}" id="sortMenubuilder">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="authorItembuilder" iconSclass="fa fa-sort-amount-asc" label="${labels.byAuthor}"></menuitem>
+								<menuitem id="dateItembuilder" iconSclass="fa fa-sort-amount-asc" label="${labels.byDate}"></menuitem>
+								<menuitem id="nameItembuilder" iconSclass="fa fa-sort-amount-asc" label="${labels.dspName}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+				</hbox>
+				
+                <grid mold="paging" vflex="1" id="entityList" autopaging="true" visible="false" emptyMessage="${labels.nobuilderAvailable}">
+				  </grid>
+				
+				   <anchorlayout id="thumbnailLayout" vflex="1"
+                  	visible="true" apply="org.zkoss.bind.BindComposer"
+                	viewModel="@id('vm') @init('org.hpccsystems.dsp.eclBuilder.controller.BuilderGrid')"
+                	children="@bind(vm.builders)" sclass="gridviewLayout">
+                	<template name="children" var="builder">
+                		<anchorchildren onClick="@command('selectEntity',entity=builder)" 
+                			sclass="gridAnchor" height="270px"
+                					width="250px">
+
+                			<vlayout vflex="1">
+                				<vlayout sclass="gridLayout" vflex="1" hflex="1">
+	                				<hlayout vflex="1" hflex="1">
+	                					<image sclass="myimg" hflex="1">
+	                						<attribute name="onCreate">
+	                							this.self.setSrc("/images/thumbnail/chart_db.png");
+	                						</attribute>
+	                					</image>
+	                				</hlayout>
+	                				<hlayout class="grid-buttons">
+	                					<button iconSclass="z-icon-edit" zclass="img-btn" style="color:orange;cursor:pointer" tooltiptext="${labels.editbuilder}" if="${sessionScope.user.canEdit()}" onClick="@command('editbuilder',gridViewbuilder=builder)"/>
+	                					<button iconSclass="z-icon-copy" zclass="img-btn" style="color:blue;cursor:pointer" if="${sessionScope.user.canCreate()}" tooltiptext="${labels.cloneDasboard }" onClick="@command('clonebuilder',gridClonebuilder=builder)"/> 
+	                					<button iconSclass="z-icon-trash-o" zclass="img-btn"  style="color: red;cursor:pointer"  if="${sessionScope.user.canEdit()}" tooltiptext="${labels.deleteTitle}" onClick="@command('deletebuilder',gridViewbuilder=builder)"/>
+	                				</hlayout>
+                				</vlayout>
+                				<hlayout>
+                					<label value="@bind(builder.name)" if="${sessionScope.user.canViewProject()}" tooltiptext="${labels.viewbuilder}" onClick="@command('viewbuilder',gridViewbuilder=builder)" style= "cursor:pointer" sclass="h4"/>
+                					<label value="${labels.by} " sclass="small"/>
+                				</hlayout>
+                					<hlayout>
+                					<label value="${labels.updated}" sclass="small"/>
+                				</hlayout>
+                			</vlayout>
+                		</anchorchildren>
+                	</template>
+                </anchorlayout>
+                	
+				<hlayout sclass="viewSelector" visible="false">
+                	<radiogroup id="viewSelectRadioGroup" visible="false">
+                		<radio id="toggleGridView" label="${labels.gridview}"
+                			sclass="viewSelectorRadioButton"/>
+                		<radio id="toggleListView" label="${labels.listview}"
+                			sclass="viewSelectorRadioButton"/>
+                	</radiogroup>
+                </hlayout>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>

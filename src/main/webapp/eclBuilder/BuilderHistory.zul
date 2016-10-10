@@ -1,0 +1,27 @@
+<div apply="org.hpccsystems.dsp.eclBuilder.controller.BuildECLHistoryController" style="height:100%;">
+
+  <tabbox id="tabbox" orient="bottom" style="height:100%;">
+	<tabs id="tabs">	
+		<tab label="Builder History" id="eclHistoryTab"/>
+	</tabs>
+	
+	
+	<tabpanels style="height:95%;">
+		<tabpanel id="historyPanel" style="height:Inherit;Overflow:scroll;">
+  			
+	  	</tabpanel>
+		
+    </tabpanels>
+   </tabbox>
+<style>
+	.reportDataGrid .z-row-content{
+		height : 32px !Important;
+	}
+	.reportDataGrid .z-grid-odd  .z-row-inner{
+		background: #E1F5FE !Important;
+	}
+	.z-grid-body table, .z-grid-header table{
+		width:100% !Important;
+	}
+</style>
+</div>

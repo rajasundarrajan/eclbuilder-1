@@ -1,0 +1,69 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout apply="org.hpccsystems.dsp.ramps.controller.FileBrowserController" vflex="1">
+	<listbox id="datasetList" model="${$composer.datasetModel}" hflex="1" multiple="false" class="datasource_list">
+		<listhead hflex="1">
+			<listheader width="200px"></listheader>
+			<listheader hflex="1"></listheader>
+		</listhead>
+
+		<template name="model">
+			<listitem>
+				<listcell label="${labels.logicalFile} ${$composer.datasetModel.size() > 1 ? forEachStatus.index + 1 : ''}"></listcell>
+				<listcell>
+					<hlayout>
+						<button zclass="img-btn" iconSclass="fa fa-list-alt" tooltiptext="${labels.structure}" forward="onClick=datasetList.onStructureHover(${each})"/>
+						<label hflex="1" style="font-weight:600;float: left;text-align: left;width: 100%;" zclass="z-textbox" value="${(each.isConfigured() and each.getLogicalFileName()!=null)?each.getLogicalFileName():labels.chooseFile}"/>
+						<button label="${labels.useGlobalVar}" visible="${$composer.project.isShowGlobalVariable()}" sclass="globalVarBtns" popup="globalVarPopup, after_center" />
+						<button zclass="img-btn btn-close" iconSclass="fa fa-trash" forward="onClick=datasetList.onDeleteDataset(${each})" if="${$composer.datasetPlugin.hasMultipleOutputs() and !$composer.isFlowView()}" style="padding-right:20px;"/>
+					</hlayout>
+				</listcell>
+			</listitem>
+		</template>
+	</listbox>
+	<hbox hflex="1" pack="end">
+		<button label="${labels.addDataSource}" iconSclass="fa fa-plus" id="addUsedataset" disabled="false" if="${!$composer.isFlowView()}"/>
+		<space></space>
+		<button label="${labels.fileContentsPreview}" iconSclass="fa fa-file" id="filePreview" disabled="true"/>							
+	</hbox>
+	<tree id="fileTree" vflex="1" sclass="file-browser-item">			
+		<treecols>
+			<treecol width="100%">
+				<label value="${labels.selectaFile}"></label>
+				<hlayout style="float:right">
+					<vlayout visible="false" id="sprayProgressContainer">
+						<label>${labels.uploading}</label>
+					</vlayout>
+					<button id="sprayStatus" visible="false"></button>
+					<button iconSclass="z-icon-refresh" id="refreshFiles" label="${labels.dspRefresh}" sclass="import-btn" autodisable="true"></button>
+					<button if="${sessionScope.user.getPermission().getRampsPermission().canImportFile()}" iconSclass="z-icon-plus" id="newDataSource" label="${labels.importFile}" sclass="import-btn" autodisable="true"></button>
+				</hlayout>		
+			</treecol>
+		</treecols>
+		<auxhead id="emptyMessage" visible="false" sclass="no-file-found">
+			<auxheader colspan="2">
+				<hbox hflex="1" pack="center">
+					<label id="emptyMsglabel"></label>
+				</hbox>
+			</auxheader>
+		</auxhead>
+	</tree>
+	
+	<popup width="350px" id="globalVarPopup" class="options-popup">
+		<listbox id="globalVariablesList" hflex="1">
+			<listhead>
+				<listheader label="Choose a global variable with file name"> </listheader>
+			</listhead>
+		</listbox>
+	</popup>
+    
+	<popup id="structure" width="300px" sclass="structure-popup">
+		<vlayout hflex="1">
+			<hbox hflex="1" align="center">
+				<label value="${labels.structure }" sclass="h4"/>
+				<space hflex="1"/>
+				<button label="${labels.dspUpdate}" sclass="update-btn" id="updateBtn"/>
+			</hbox>
+			<textbox hflex="1" id="structureTextBox" multiline="true" readonly="true" rows="5"/>
+		</vlayout>
+	</popup>
+</vlayout>

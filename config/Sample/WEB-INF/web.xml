@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"> 
+
+	<description><![CDATA[My ZK Application]]></description>
+	<display-name>DSP</display-name>
+
+	<!-- uncomment to use in production environment  -->
+	<!-- <distributable /> -->
+	<!-- uncomment to use in production environment  -->
+	
+	<!-- Spring configuration -->
+	<!-- Initialize spring context -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+<!-- MBS INTEGRATION -->
+
+<!--the type of UserGroupService to instantiate by default. 
+	Current implemented values are "mbs" and "stub" -->
+	<context-param>
+		<param-name>UserGroupSvcType</param-name>
+		<param-value>MBS</param-value>
+	</context-param>
+
+<!--the name of the group that equates to admin permissions. -->
+	<context-param>
+		<param-name>UserGroupAdminRole</param-name>
+		<param-value>DSPDEV_ADMIN</param-value>
+	</context-param>
+
+<!-- MBS STUB PARAMETERS  when not actually connecting to MBS, use the below -->
+	<context-param>
+		<param-name>UserGroupStubRoles</param-name>
+		<param-value>DSPDEV_ADMIN,DSPDEV_DEVELOPER,DSPDEV_BATCH_USER,DSPDEV_VIS_CONSUMER</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>UserGroupStubUsers</param-name>
+		<param-value>natear01,somanr,ThanSe01,selvamd1,sethja01,prichajx,BaylisDX,elumra01,chambejx,leeddx,chalaax,villanfx,shetyedv,testdspdevadmin,testdspdevdeveloper,testdspdevbatchuser,testdspdevvisconsumer</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>UserGroupStubPermissions</param-name>
+		<param-value>DSPDEV_VIEW_PROJECT,DSPDEV_VIEW_OUTPUT,DSPDEV_VIEW_PROCESS,DSPDEV_CREATE,DSPDEV_EDIT,DSPDEV_RUN,DSPDEV_WEB_SERVICE</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>UserGroupStubRolePermissions</param-name>
+		<param-value>DSPDEV_ADMIN:DSPDEV_VIEW_PROJECT|DSPDEV_VIEW_OUTPUT|DSPDEV_VIEW_PROCESS|DSPDEV_CREATE|DSPDEV_EDIT|DSPDEV_RUN|DSPDEV_WEB_SERVICE,
+			DSPDEV_DEVELOPER:DSPDEV_VIEW_PROJECT|DSPDEV_VIEW_OUTPUT|DSPDEV_VIEW_PROCESS|DSPDEV_CREATE|DSPDEV_EDIT|DSPDEV_RUN|DSPDEV_WEB_SERVICE,
+			DSPDEV_BATCH_USER:DSPDEV_VIEW_PROJECT|DSPDEV_VIEW_OUTPUT|DSPDEV_VIEW_PROCESS|DSPDEV_RUN,
+			DSPDEV_VIS_CONSUMER:DSPDEV_VIEW_PROJECT|DSPDEV_VIEW_PROCESS|DSPDEV_VIEW_OUTPUT
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>UserNVPRelationship</param-name>
+		<param-value>
+		prichajx:PluginRepository~HIPIE_Plugins,
+		somanr:PluginRepository~somanr_plugins,
+		ThanSe01:PluginRepository~HIPIE_Plugins
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>UserGroupStubUserRoles</param-name>
+		<param-value>
+		natear01:DSPDEV_ADMIN,
+		somanr:DSPDEV_ADMIN,
+		prichajx:DSPDEV_ADMIN,
+		BaylisDX:DSPDEV_ADMIN,
+		ThanSe01:DSPDEV_ADMIN,
+		selvamd1:DSPDEV_DEVELOPER,
+		selvamd1:DSPDEV_ADMIN,
+		sukupr02:DSPDEV_ADMIN,
+		sethja01:DSPDEV_DEVELOPER,
+		elumra01:DSPDEV_DEVELOPER,
+		elumra01:PLUGIN_DEVELOPER,
+		elumra01:DSPDEV_ADMIN,
+		chambejx:DSPDEV_ADMIN,
+		leeddx:DSPDEV_ADMIN,
+		chalaax:DSPDEV_ADMIN,
+		villanfx:DSPDEV_ADMIN,
+		shetyedv:DSPDEV_ADMIN,
+		testdspdevadmin:DSPDEV_ADMIN,
+		testdspdevdeveloper:DSPDEV_DEVELOPER,
+		testdspdevdeveloper@mbs:DSPDEV_DEVELOPER,
+		testdspdevbatchuser:DSPDEV_BATCH_USER,
+		testdspdevvisconsumer1@mbs:DSPDEV_VIS_CONSUMER,
+		testdspdevvisconsumer:DSPDEV_VIS_CONSUMER</param-value>
+	</context-param>
+
+<!-- Turn on or off the allow invalid certs for ssl socket connection.-->
+                <context-param>
+                                <param-name>AllowInvalidCerts</param-name>
+                                <param-value>true</param-value>
+                </context-param>
+
+<!-- End of MBS STUB PARAMETERS -->
+
+<!-- BEGIN LIVE MBS PARAMETERS -->
+<!-- the URL/connection for the UserGroupService. Currently the Dev MBS web service URL.-->	
+	<context-param>
+		<param-name>UserGroupSvcUrl</param-name>
+		<param-value>https://mbswsdev.seisint.com/RIAGAuth/ws_riagauth11.asmx/</param-value>
+	</context-param>
+
+<!-- the MBS Group (aka "Application") for which to retrieve users and groups when requests are made.-->
+	<context-param>
+		<param-name>UserGroupSvcDomain</param-name>
+		<param-value>DSPDEV</param-value>
+	</context-param>
+
+<!-- A comma-delimited list of additional MBS Groups to get users and roles from.  (For example, the circuits/dashboard umbrella group)-->
+	<context-param>
+		<param-name>UserGroupSvcPartnerDomains</param-name>
+		<param-value></param-value>
+	</context-param>
+
+<!-- the LDAP userid used to authenticate MBS Requests-->
+	<context-param>
+		<param-name>UserGroupSvcUsername</param-name>
+		<param-value>svc_dspdev@mbs</param-value>
+	</context-param>
+	
+<!-- the LDAP password used to authenticate MBS Requests-->
+		<context-param>
+		<param-name>UserGroupSvcPassword</param-name>
+		<param-value>4L8fR84k</param-value>
+	</context-param>
+<!-- Reference/GCID/Company info to be used while stub is enabled-->
+	<context-param>
+		<param-name>StubCompanies</param-name>
+		<param-value>
+		30378:RELX Group,
+		40579:Lexis Nexis,
+		50780:Lexis Nexis Risk Solutions,
+		60981:Lexis Nexis Risk Medai,
+		70182:Reed Business Information,
+		</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>DSPDevApprover</param-name>
+		<param-value>DSPDEV_APPROVER</param-value>
+	</context-param>
+
+<!-- END MBS PARAMETERS -->
+	<!-- //// -->
+	<!-- ZK -->
+	<listener>
+		<description>ZK listener for session cleanup</description>
+		<listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
+	</listener>
+	<servlet>
+		<description>ZK loader for ZUML pages</description>
+		<servlet-name>zkLoader</servlet-name>
+		<servlet-class>org.zkoss.zk.ui.http.DHtmlLayoutServlet</servlet-class>
+
+			<init-param>
+			<param-name>update-uri</param-name>
+			<param-value>/zkau</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup><!-- Must -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>zkLoader</servlet-name>
+		<url-pattern>*.zul</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>zkLoader</servlet-name>
+		<url-pattern>*.zhtml</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>The asynchronous update engine for ZK</description>
+		<servlet-name>auEngine</servlet-name>
+		<servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>auEngine</servlet-name>
+		<url-pattern>/zkau/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--Spring DispatcherServlet to make DSP interact with other appln -->	
+	 <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+   		<load-on-startup>2</load-on-startup>        
+    </servlet> 
+
+	 <servlet>
+        <servlet-name>ws-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+   		<load-on-startup>3</load-on-startup>        
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ws-dispatcher</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ws-dispatcher</servlet-name>
+        <url-pattern>/wsCompositions/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ws-dispatcher</servlet-name>
+        <url-pattern>/wsHpcc/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+	<!-- RequestWrapper mapping for XSS -->
+    <filter>
+		<filter-name>RequestWrappingFilter</filter-name>
+		<filter-class>org.hpccsystems.dsp.requestwrapper.RequestWrappingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RequestWrappingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- HIPIE Repositories Config -->
+	<context-param>
+		<param-name>RepositoryConfigFile</param-name>
+		<param-value>/WEB-INF/repositories.cfg</param-value>
+	</context-param>
+	
+	<!-- /////////// -->
+	<!-- [Optional] Session timeout -->
+	<!--<session-config>
+			<session-timeout>60</session-timeout>
+		</session-config>-->
+	
+	<!-- Error Page -->
+	<error-page>
+	    <exception-type>java.lang.Throwable</exception-type>    
+	    <location>/error/page.zul</location>    
+	</error-page>
+
+	<!-- [Optional] MIME mapping -->
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/vnd.ms-word</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>gif</extension>
+		<mime-type>image/gif</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>htm</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpeg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>js</extension>
+		<mime-type>text/javascript</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>png</extension>
+		<mime-type>image/png</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>txt</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/vnd.ms-excel</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xml</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>zhtml</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>zul</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.zul</welcome-file>
+		<welcome-file>index.zhtml</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+	</welcome-file-list>
+</web-app>

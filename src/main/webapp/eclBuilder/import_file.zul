@@ -1,0 +1,224 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window
+	id="importWindow" closable="true" vflex="1"
+	title="${labels.importFile}" apply="org.hpccsystems.dsp.eclBuilder.controller.ImportFileController" width="80%" sclass="importfile">
+	
+	<vlayout vflex="1" hflex="1">
+		<hbox vflex="1" hflex="1" id="controlsContainer">
+			<tabbox vflex="1" id="previewTabbox" hflex="1">
+				<tabs>
+					<tab iconSclass="fa fa-file-text-o" class="file-preview-container" label="${labels.fileContents}" id="contentsTab" ></tab>
+					<tab iconSclass="fa fa-wrench" class="file-preview-container" selected="true" label="${labels.fileConfig}" id="configTab"></tab>
+					<tab iconSclass="fa fa-th" label="${labels.dataPreview}" id="previewTab" style="pointer-events:none"></tab>		
+				</tabs>
+				<tabpanels>
+					<tabpanel style="overflow: auto;">
+						<label multiline="true" id="fileContents" vflex="1"/>
+					</tabpanel>
+					<tabpanel>
+						<hlayout hflex="1" vflex="1">
+							<grid hflex="1" height="400px">
+								<columns>
+									<column width="200px" />
+									<column />
+								</columns>
+								<rows>
+									<row>
+										<label class="fileup-form-label">File upload</label>
+										<vlayout>
+											<hlayout>
+												<button id="upload" upload="true,maxsize=-1,multiple=false,native">
+													Upload
+												</button>
+												<label id="uploadLabel"></label>
+											</hlayout>
+											<hlayout>
+											</hlayout>
+										</vlayout>
+									</row>
+									
+									<row>
+										<label class="fileup-form-label">File type</label>
+										<radiogroup id="fileType" sclass="fileType-radiogroup" model="${$composer.fileTypeModel}">
+											<vlayout>
+												<template name="model">
+													<radio value="${each}" label="${each.toString()}"/>
+												</template>
+											</vlayout>
+										</radiogroup>
+									</row>
+									
+									<row id="csvRow" visible="false" spans="2">
+										<vlayout>
+											<label sclass="h4">${labels.delimited}</label>
+											<hlayout class="file-inner-form">
+												<label class="fileup-form-label">${labels.headerRow}</label>
+												<checkbox label="${labels.headerPresent}" id="hasHeader" />
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label class="fileup-form-label">${labels.fieldDelimiter}</label>
+												<radiogroup id="fieldRadiogroup">
+													<div>
+														<radio value="," label="${labels.comma}" selected="true"/>
+														<radio value="\t" label="${labels.tab}" />
+														<radio value=";" label="${labels.semicolon}" />
+														<radio value=" " label="${labels.space}" />
+														<hlayout class="other-layout">
+															<radio value="other" label="${labels.other}" />
+															<textbox id="customFieldSpeperator" visible="false" width="75px"></textbox>
+														</hlayout>
+													</div>
+												</radiogroup>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label class="fileup-form-label">${labels.recordDelimiter}</label>
+												<radiogroup id="recordRadiogroup">
+													<div>
+														<radio value="\n" label="${labels.enter}" selected="true"/>
+														<radio value="|" label="${labels.pipe}" />
+														<radio value=";" label="${labels.semicolon}" />
+														<radio value=" " label="${labels.space}" />
+														<hlayout class="other-layout">
+															<radio value="other" label="${labels.other}" />
+															<textbox id="customRecordSpeperator" visible="false" width="75px"></textbox>
+														</hlayout>
+													</div>
+												</radiogroup>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label class="fileup-form-label">${labels.fieldEncloseCharacter}</label>
+												<radiogroup id="encloseCharacterRadiogroup">
+													<div>
+														<radio value="'" label="${labels.singleQuote}" selected="true"/>
+														<radio value="&quot;" label="${labels.doubleQuote}" />
+														<hlayout class="other-layout">
+															<radio value="other" label="${labels.other}" />
+															<textbox id="customEncloseCharacter" visible="false" width="75px"></textbox>
+														</hlayout>
+													</div>
+												</radiogroup>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label class="fileup-form-label">${labels.escapeCharacter}</label>
+												<radiogroup id="escapeCharacterRadiogroup">
+													<div>
+														<radio value="\" label="${labels.slash}" selected="true"/>
+														<hlayout class="other-layout">
+															<radio value="other" label="${labels.other}" />
+															<textbox id="customEscapeCharacter" visible="false" width="75px"></textbox>
+														</hlayout>
+													</div>
+												</radiogroup>
+											</hlayout>
+										</vlayout>
+									</row>
+									
+									<row id="flatRow" visible="false" vflex="1" spans="2">
+										<vlayout>
+											<label sclass="h4">${labels.flatFile}</label>
+											<hlayout class="file-inner-form">
+												<label  class="fileup-form-label">${labels.recordLength}</label>
+												<intbox id="recordLengthBox"/>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label  class="fileup-form-label">${labels.NoCols}</label>
+												<intbox id="noofColumnBox"/>
+											</hlayout>
+										</vlayout>
+									</row>
+									
+									<row id="xmlRow" visible="false" vflex="1" spans="2">
+										<vlayout>
+											<label sclass="h4">${labels.xmlOptions}</label>
+											<hlayout class="file-inner-form">
+												<label  class="fileup-form-label">${labels.rootTag}</label>
+												<textbox id="rootTag"></textbox>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label  class="fileup-form-label">${labels.rowTag}</label>
+												<textbox id="sprayrootTag"></textbox>
+											</hlayout>
+											<hlayout class="file-inner-form">
+												<label  class="fileup-form-label">${labels.sourceFormat}</label>
+												<combobox id="sourceFormat" model="${$composer.fileFormats}">
+													<template name="model">
+														<comboitem label="${each.toString()}"></comboitem>
+													</template>
+												</combobox>
+											</hlayout>
+										</vlayout>
+									</row>
+								</rows>
+							</grid>
+							<vlayout hflex="1" vflex="1">
+								<hlayout>
+									<label class="fileup-form-label">${labels.logicalFileName}</label>
+									<label id="baseScope" visible="false"></label>
+									<textbox width="250px" id="logicalFile"></textbox>
+								</hlayout>
+								<label sclass="h4">${labels.recordLayout}</label>
+								<grid id="fixedFileTable" vflex="1"
+									emptyMessage="${labels.recordCannotBeDefined}"
+									model="${importWindow$composer.fixedFileRowModel}">
+									<columns>
+										<column label="${labels.dspName}"></column>
+										<column label="${labels.dspType}"></column>
+										<column label="${labels.size}"></column>
+										<column visible="false" label="${labels.xpath}" id="xpathColumn"></column>
+										<column width="50px" visible="false" id="deleteColumn"></column>
+									</columns>
+									<template name="model">
+								        <row>
+								           <textbox hflex="1" value="${each.columnName}" forward="onChanging=fixedFileTable.onNameUpdate" placeholder="Column ${forEachStatus.index+1}"></textbox>
+								           <combobox hflex="1" forward="onSelect=fixedFileTable.onColTypeChange" placeholder="Datatype" readonly="true">
+								           <comboitem label="STRING"></comboitem>
+								            	<comboitem label="INTEGER"></comboitem>
+								            	<comboitem label="DECIMAL"></comboitem>
+								            	<comboitem label="REAL"></comboitem>
+								            	<comboitem label="UNICODE"></comboitem>
+								            	<comboitem label="BOOLEAN"></comboitem>
+								            	<comboitem label="DATA"></comboitem>
+								           </combobox>
+								           <intbox hflex="1" forward="onChanging=fixedFileTable.onSizeUpdate" placeholder="Size" format="####"></intbox>
+								           <textbox hflex="1" if="${$composer.isXMLfile()}" forward="onChange=fixedFileTable.onXpathUpdate" placeholder="Xpath"></textbox>
+								           <button tooltiptext="Delete" if="${$composer.isXMLfile()}" forward="onClick=fixedFileTable.onDelete" iconSclass="fa fa-trash" sclass="img-btn xml-delete-btn" ></button>
+								        </row>
+								    </template>
+								    <foot id="addFoot" visible="false">
+								        <footer>
+								        	<button label="${labels.add}" id="add" iconSclass="fa fa-plus"></button>
+								        </footer>
+								    </foot>	
+								</grid>
+								<hbox hflex="1" pack="end">
+									<button iconSclass="fa fa-th" forward="onClick=previewTab.onClick">${labels.dataPreview}</button>
+								</hbox>
+							</vlayout>
+						</hlayout>
+					</tabpanel>
+					<tabpanel>
+						<grid id="previewGrid" vflex="1"  emptyMessage="${labels.noPreview}" sclass="gridContent" sizedByContent="true"/>																																												
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+
+		</hbox>
+		
+		<hbox hflex="1" height="50px" align="center" pack="end">
+			<vlayout vflex="1"  width="250px" id="progressContainer">
+				<label id="progressStatus" class="progress-status"></label>	
+				<vlayout id="progressbarContainer" hflex="1"/>
+			</vlayout>
+			
+			<space width="25px"></space>
+			<checkbox id="keepOriginalCheck" label="${labels.keepOriginal}" sclass="checkbox" />
+			<space width="25px"></space>
+			<checkbox label="${labels.convertToThor}" checked="true" disabled="true" sclass="checkbox disabled" />
+			<space width="5px"></space>
+			<button iconSclass="fa fa-cloud-upload" autodisable="true" id="spray" class="configureSaveBtn">${labels.spray}</button>
+			<space width="5px"></space>
+			<button id="closeImportDialog" label="${labels.cancel}"></button>
+		</hbox>
+	</vlayout>
+
+</window>

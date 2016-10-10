@@ -1,0 +1,30 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout apply="org.hpccsystems.dsp.admin.controller.DependenciesController" vflex="1">
+	<label>${labels.dependenciesHeadline }</label>
+	<tabbox vflex="1">
+		<tabs>
+			<tab label="${labels.ecl}"></tab>
+			<tab label="${labels.indices}"></tab>
+			<tab label="${labels.logicalFiles}"></tab>
+			<tab label="${labels.superfiles}"></tab>
+			<tab label="${labels.localfiles}"></tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<include src="admin/dsp/dependency_grid.zul" argument="${$composer.getEclType()}"></include>
+			</tabpanel>
+			<tabpanel>
+				<include src="admin/dsp/dependency_grid.zul" argument="${$composer.getIndicesType()}"></include>
+			</tabpanel>
+			<tabpanel>
+				<include src="admin/dsp/dependency_grid.zul" argument="${$composer.getLogicalfileType()}"></include>
+			</tabpanel>
+			<tabpanel>
+				<include src="admin/dsp/dependency_grid.zul" argument="${$composer.getSuperfileType()}"></include>
+			</tabpanel>
+			<tabpanel>
+				<include src="admin/dsp/dependency_grid.zul" argument="${$composer.getLocalfileType()}"></include>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</vlayout>

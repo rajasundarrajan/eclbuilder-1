@@ -1,0 +1,108 @@
+<vlayout vflex="1" hflex="1" apply="org.hpccsystems.dsp.dashboard.controller.CanvasController">
+	<timer id="ciTimer" delay="10000" repeats="true"/>
+	<hbox hflex="1" pack="end">
+			<label  id="notifyLabel" visible="false" sclass="notifyLabel">${labels.projectRunning}</label>
+			<a id="abort" visible="false" sclass="abortBtn" iconSclass="fa fa-close"> ${labels.abort}</a>
+			<a id="moreInfo" visible="false" sclass="moreinfo-red">${labels.smoreInfo}</a>
+			<timer id="timer" delay="3000"/>
+		<button id="advancedModeHelp" iconSclass="fa  fa-question-circle" sclass="configure-widget-info-btn" visible="false"/>
+		<button id="addGlobalFilter" iconSclass="fa fa-filter" sclass="configure-widget-btn" label="${labels.dspFilter}"/>
+		<button id="addWidget" iconSclass="z-icon-plus" sclass="configure-widget-btn" label="${labels.add}"/>
+		<button id="addInteractivityRamps" autodisable="true" sclass="configure-widget-btn" iconSclass="fa fa-external-link"  label="${labels.interactions}"/>
+		<button id="addInteractivity" autodisable="true" sclass="configure-widget-btn" iconSclass="fa fa-external-link"  label="${labels.interactions}" visible="false"/>
+		<button if="${$composer.showRunButton}" id="runBtn" label="${labels.run}" iconSclass="z-icon-play" sclass="play-btn"/>
+		<button if="${$composer.showSaveButton}" id="saveBtn" label="${labels.dspSave}" iconSclass="z-icon-save" sclass="configure-widget-save-btn"/>
+		<button if="${$composer.showViewButton}" id="viewBtn" label="${labels.view}" iconSclass="fa fa-eye" sclass="configure-widget-save-btn"/>
+		
+		<combobutton iconSclass="z-icon-gears" id="dashboardSettings" autodisable="true" 
+			label="${labels.compositionSettings}" sclass="dashboard_settings" autodrop="false" visible="false">
+			<popup zclass="popup" id="viewDashboardSettings" >
+				<listbox width="175px" nonselectableTags="*">
+					<listitem>
+						<listcell id="viewDashboardPersDUD" label="${labels.viewDUD}" iconSclass="fa fa-code" visible="false"/>
+					</listitem>
+					<listitem>
+						<listcell id="downloadDashboard" label="${labels.download}" iconSclass="z-icon-download" visible="false"/>
+					</listitem>
+					<listitem>
+						<listcell id="viewWorkunits" label="${labels.viewWorkunits}" iconSclass="z-icon-download" />
+					</listitem>
+					<listitem>
+					   <listcell if="${sessionScope.user.isAllowedAdvancedMode()}" id="advancedMode" label="${labels.advancedMode}" iconSclass="fa fa-code" visible="false" />
+					</listitem>
+				</listbox>
+			</popup>
+		</combobutton>
+	</hbox>
+	
+	
+	<div id="runningProgress" sclass="loadingOverlay-wrapper" visible="false">
+        <div sclass="loadingOverlay">
+            <separator />
+			<separator />
+			<div>
+	            <image src="dashboard/assets/image/progress-large.gif" ></image>
+			</div>
+			<separator />
+			<div>${labels.creatingDashboard} ...</div>
+		</div>
+	</div>
+                
+                
+	<tabbox vflex="1" hflex="1" class="borderlessTabbox">
+		<tabs visible="false">
+			<tab id="canvasTab"></tab>
+			<tab id="widgetConfigTab"></tab>
+			<tab id="interactivityTab"></tab>
+			<tab id="processTab"></tab>
+			<tab id="golbalFilterTab"></tab>
+			<tab id="advancedTab"></tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel id="canvasTabPanel">
+			
+			
+			
+				<div vflex="1" style="overflow: auto;">
+					<anchorlayout id="canvasThumbs" apply="org.zkoss.bind.BindComposer" 
+						viewModel="@id('canvasGrid') @init('org.hpccsystems.dsp.dashboard.controller.CanvasGrid')"
+						children="@bind(canvasGrid.widgets)">
+						<!-- Remove check widget.isDatabomb() once databomb's invalid() check is complete  -->
+						<template name="children" var="widget">
+							<anchorchildren sclass="@load(widget.isDatabomb()||widget.isValid() ? 'normal' : 'invalid-widget')" >
+								<div sclass="dsb-wdg-wrp" width="400px">
+									<hbox width="400px" sclass="dsb-wdg-hdr">
+										<label hflex="1" sclass="dsb-wdg-hdr-label" value="@bind(widget.getTitle())"/>
+										<button iconSclass="z-icon-cog" tooltiptext="${labels.configureWidget}" sclass="dsb-wdg-hdr-btn" 
+																		onClick="@command('configureWidget',widget=widget)"/>
+										<button iconSclass="z-icon-trash-o" tooltiptext="${labels.deleteWidget}" sclass="dsb-wdg-hdr-btn"
+																		onClick="@command('deleteWidget',widget=widget)"/>
+									</hbox>
+									<div style="background-color:#fff;" sclass="dsb-wdg-img-wrap" width="400px" height="220px" tooltiptext="${widget.chartConfiguration.getTypeName()}"
+										onCreate='Clients.evalJavaScript("showDummyChart(\"" + self.getTooltiptext() + "\",\"" + self.getUuid() + "\");")'>
+									</div>
+								</div>
+							</anchorchildren>
+						</template>
+					</anchorlayout>
+				</div>
+			</tabpanel>
+			<tabpanel>
+				<include id="configureWidgetInclude"></include>
+			</tabpanel>
+			<tabpanel>
+				<include id="interactivityInclude"></include>
+			</tabpanel>
+			<tabpanel>
+    			<include id="processInclude"></include>
+			</tabpanel>
+			<tabpanel>
+				<include id="globalFilterInclude"></include>
+			</tabpanel>
+			<tabpanel>
+				<include id="advancedModeInclude"></include>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+	
+</vlayout>

@@ -1,0 +1,116 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vbox id="container" vflex="1" hflex="1" apply="org.hpccsystems.dsp.ramps.controller.ProjectDetailController" spacing="5px">
+	
+	<hbox hflex="1" align="center">
+		<hlayout hflex="1" spacing="0">
+			<label  id="notifyLabel" visible="false" sclass="notifyLabel">${labels.projectRunning}</label>
+			<a id="moreInfo" visible="false" sclass="moreinfo-red">more info</a>
+			<timer id="timer" delay="3000"/>
+		</hlayout>
+		
+		<space hflex="1"></space>
+		
+		<button  sclass="configure-btn" iconSclass="fa fa-pie-chart" id="configDashboardButton"  
+			autodisable="true" label="${labels.configureDashboard}" visible="false"/>
+		<button  sclass="configure-btn" iconSclass="fa fa-pie-chart" id="viewDashboardButton"  
+			autodisable="true" label="${labels.viewDashboard}" visible="false"/>
+		<combobutton id="viewDashboardCombo" label="${labels.viewDashboard}" iconSclass="fa fa-pie-chart" visible="false" 
+			sclass="view-dashboard-btn" autodrop="false">
+			<popup zclass="popup" id="viewDashboardPopup">
+				<listbox width="200px" nonselectableTags="*">
+					<listitem>
+						<listcell id="configureDashboard" label="${labels.editConfiguration}" iconSclass="fa fa-cog" if="${sessionScope.user.canEdit() and not $composer.canViewProject}"/>
+					</listitem>
+					<listitem>
+						<listcell id="viewDashboardDUD" label="${labels.viewDUD}" iconSclass="fa fa-code"/>
+					</listitem>
+				</listbox>
+			</popup>
+		</combobutton>
+		
+			<combobutton iconSclass="z-icon-gears"  id="configButton"  autodisable="true" label="${labels.compositionSettings}" sclass="dashboard_settings" autodrop="false"
+			 if="${sessionScope.user.canEdit() and not $composer.canViewProject}">
+			<popup zclass="popup" id="viewSettings" >
+				<listbox width="200px" nonselectableTags="*">
+					<listitem>
+						<listcell sclass="configure-btn" iconSclass="fa fa-server" id="changeCluster"  label="${labels.changeCluster}"/>
+					</listitem>
+					
+					<listitem>
+						<listcell id="downloadComp" iconSclass="z-icon-download" label="${labels.downloadComposition}"/>
+					</listitem>
+				</listbox>
+			</popup>
+		</combobutton>
+		
+		
+		<button 
+			if="${sessionScope.user.canRun()}"
+			id="runBtn" iconSclass="z-icon-play" sclass="play-btn" autodisable="true" label="${labels.run}"></button>
+		
+		<combobutton sclass="save-btn" id="saveRootButton" autodisable="true" label="${labels.dspSave}" iconSclass="z-icon-save"
+			if="${sessionScope.user.canEdit() and $composer.HIPIECanEdit and not $composer.canViewProject}">
+			<popup zclass="popup">
+				<listbox width="200px" nonselectableTags="*">
+					<listitem>
+						<listcell iconSclass="z-icon-save" id="saveButton" label="${labels.dspSave}"/>
+					</listitem>
+					<listitem>
+						<listcell id="saveAsButton" iconSclass="z-icon-copy" label="${labels.saveAs}"/>
+					</listitem>
+					<listitem>
+						<listcell id="saveAsTemplateButton" iconSclass="z-icon-bookmark-o"
+							label="${labels.saveAsTemplate}"/>
+					</listitem>
+				</listbox>
+			</popup>
+		</combobutton>
+		
+		<button 
+			if="${  sessionScope.user.canEdit() and  not $composer.HIPIECanEdit and  $composer.canViewProject}"
+			id="saveAsView" iconSclass="z-icon-copy" autodisable="true" label="${labels.saveAs}"></button>
+		<button 
+			if="${  sessionScope.user.canEdit() and  $composer.HIPIECanEdit and  $composer.canViewProject}"
+			id="viewFlowEdit" iconSclass="z-icon-edit"  sclass="edit-btn" autodisable="true" label="${labels.dspEdit}" ></button>
+	</hbox>	
+				
+	<tabbox vflex="1" hflex="1" class="borderlessTabbox">
+		<tabs visible="false">
+			<tab id="rampsTab"></tab>
+			<tab id="importTab"></tab>
+			<tab id="dashboardTab"></tab>
+			<tab id="viewDashboardTab"></tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel hflex="1" >
+				<tabbox vflex="1" sclass="main-tabbox">
+					<tabs id="allProjectsTab">
+						<tab iconSclass="z-icon-file-text-o" label="${labels.design}" id="projectTab" />
+						<tab iconSclass="z-icon-tachometer" id="processTab" label="${labels.process}"  if="${sessionScope.user.canViewProcess()}"/>
+						<tab iconSclass="z-icon-th" id="outputTab" label="${labels.output}" if="${sessionScope.user.canViewOutput()}" visible="false"/>
+					</tabs>
+					<tabpanels>
+						<tabpanel id="editTabPanel">
+							<include id="editProjectHolder" />
+						</tabpanel>
+						<tabpanel id="processHolderTabpanel">
+							<include id="processHolder" />
+						</tabpanel>
+						<tabpanel id="outputTabpanel" visible="false">
+			
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</tabpanel>
+			<tabpanel>
+				<include id="importInclude" hflex="1" vflex="1"></include>
+			</tabpanel>
+			<tabpanel>
+				<include id="dashboardConfigInclude" hflex="1" vflex="1"></include>
+			</tabpanel>
+			<tabpanel>
+				<include id="dashboardViewInclude" hflex="1" vflex="1"></include>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</vbox>

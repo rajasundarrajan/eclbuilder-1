@@ -1,0 +1,13 @@
+{
+  "name": "simpleheat",
+  "_cacheHeaders": {
+    "ETag": "\"35e07a10ea7eb95630c3ab4a4dd4d4fe7f298230\"",
+    "Content-Length": "3602",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:35e07a10e",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/mourner/simpleheat/v0.3.0/simpleheat.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/mourner/simpleheat/v0.3.0/simpleheat.js"
+}

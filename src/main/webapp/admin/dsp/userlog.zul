@@ -1,0 +1,17 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vbox apply="org.hpccsystems.dsp.admin.controller.UserLogController" hflex="1" vflex="1">
+	<hbox align="center" spacing="10px">
+		<hlayout>
+			<label value="${labels.admUserLogStartDate}" />
+			<datebox id="startDate" placeholder="${labels.admUserLogStartDate}" cols="12" format="short" locale="de" readonly="true" />
+			<label value="${labels.admUserLogEndDate}" />
+			<datebox id="endDate" placeholder="${labels.admUserLogEndDate}" cols="12" format="short" locale="de" readonly="true" />
+			<button id="refresh" label="${labels.dspFilter}" />
+			<button id="clear" label="${labels.dspClear}" />
+		</hlayout>
+	</hbox>
+	<grid id="userLogGrid" vflex="1" emptyMessage="${labels.noresultsfound}">
+		<columns sclass="userLogGridColumn"/>
+		<rows />
+	</grid>
+</vbox>

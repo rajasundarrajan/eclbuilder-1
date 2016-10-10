@@ -1,0 +1,17 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+	<tabbox apply="org.hpccsystems.dsp.dashboard.controller.DashboardDetailsController" 
+		class="borderlessTabbox"
+		vflex="1" hflex="1">
+		<tabs  visible="false">
+			<tab id="dashboardDesign"/>
+			<tab id="dashboardOutputs"/>			
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<include id="dashboardDesignInclude" vflex="1" hflex="1"/>
+			</tabpanel>
+			<tabpanel>
+				<include id="dashboardOutputsInclude"/>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>

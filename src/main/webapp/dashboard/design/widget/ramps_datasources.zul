@@ -1,0 +1,3 @@
+<listbox id="datasourceListbox"
+	apply = "org.hpccsystems.dsp.dashboard.controller.DatasourceListController" vflex="1" sclass="datasource-tab-listbox">
+</listbox>

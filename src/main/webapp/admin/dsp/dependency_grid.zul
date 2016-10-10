@@ -1,0 +1,20 @@
+<grid apply="org.hpccsystems.dsp.admin.controller.DependencyGridController" vflex="1">
+	<columns sizable="true">
+		<column label="${labels.plugin}"/>
+		<column label="${labels.author}" />
+		<column label="${labels.eclmodule}" />
+		<column id="urlColumn" label="${labels.eclsource}" />
+	</columns>
+	<template name="model">
+		<row>
+			<label value="${each.getContract().getName()}"></label>
+			<label value="${each.getContract().getAuthor()}"></label>
+			<label
+				value="${each.getOptionValue($composer.getFile(),'','')}">
+			</label>
+			<label
+				value="${each.getOptionValue($composer.getURL(), '', '')}">
+			</label>
+		</row>
+	</template>
+</grid>

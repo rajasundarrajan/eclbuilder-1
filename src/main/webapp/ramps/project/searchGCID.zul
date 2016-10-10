@@ -1,0 +1,26 @@
+<vlayout vflex="1" apply="org.hpccsystems.dsp.ramps.controller.SearchCompanyController" width="500px">
+<label  id="notifyLabel" visible="false" sclass="notifyLabel-red">${labels.gcidEditResetsComp}</label>
+	<hbox hflex="1" align="center">
+		<label value="${labels.gcid}"></label>
+		<intbox id="gcid"></intbox>
+		<label value="${labels.companyName}"></label>
+		<textbox id="companyName"></textbox>
+		<button iconSclass="fa fa-search" autodisable="true"
+			id="searchBtn" style="float:right;" />
+	</hbox>
+	<listbox vflex="1" id="searchResult" emptyMessage="${labels.gcidEmptymessage}" mold="paging" pageSize="6">
+		<listhead>
+			<listheader sclass="searchHeaders">
+				${labels.gcid}
+			</listheader>
+			<listheader sclass="searchHeaders">
+				${labels.companyName}
+			</listheader>
+		</listhead>
+	</listbox>
+	
+	<hlayout id="confirmHbox" visible="false">
+		<textbox hflex="1" id="gcidTextbox" placeholder="${labels.selectedGCID}" readonly="true" style="font-weight:600;"/>
+		<button label="${labels.ok}" id="confirmBtn" autodisable="self"/>
+	</hlayout>
+</vlayout>

@@ -1,0 +1,45 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window border="normal" apply="org.hpccsystems.dsp.ramps.controller.NewProjectController"
+	title="${labels.hpccConnectionDetails}" closable="true" id="createNewProjectWindow"
+	forward="onCancel=onClose">
+	<vlayout>
+		<hlayout>
+			<vlayout vflex="1" width="300px">
+				<label value="${labels.projectName}" />
+				<textbox hflex="1" id="compositionName"></textbox>
+				
+				<label value="${labels.gcid}" id="gcIdLabel" />
+				
+				<hbox hflex="1">
+					<textbox hflex="1" id="gcId" readonly="true"/>
+					<button iconSclass="fa fa-search" label="${labels.search}" 
+									autodisable="true" tooltiptext="Search for GCID" id="searchPopbtn"
+									onClick="searchContainer.setVisible(true); createNewProjectWindow.invalidate();"/>
+				</hbox>
+						
+				<label value="${labels.chooseATemplate}" id="chooseTemplate"/>
+				<combobox id="template" hflex="1" readonly="true"></combobox>
+				
+				<label value="${labels.hpccConnection}"/>
+				<combobox id="connectionList" placeholder="${labels.chooseConnection}" readonly="true"></combobox>
+				
+				<label value="${labels.dspThorCluster}"/>
+				<combobox id="thorCluster" readonly="true"></combobox>
+				
+				<label value="${labels.roxieCluster}"/>
+				<combobox id="roxieCluster" readonly="true"></combobox>
+			</vlayout>
+			<space></space>
+			<vlayout id="searchContainer" width="500px" vflex="1"  visible="false">
+			<include id="searchGCIDIncludeRamps" vflex="1" src="ramps/project/searchGCID.zul"/>
+			</vlayout>	
+		</hlayout>
+
+		<hlayout style="float:right">
+			<button label="${labels.continueProject} " iconSclass="fa fa-arrow-right" zclass="continue-btn" autodisable="true" id="continueBtn" />
+			<button id="closeDashboardDialog" iconSclass="fa fa-times" label="${labels.cancel}" />
+		</hlayout>
+
+	</vlayout>
+	
+</window>

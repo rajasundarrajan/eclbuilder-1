@@ -1,0 +1,77 @@
+<vlayout  hflex="1" vflex="1" visible="true" style="overflow: auto;"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('org.hpccsystems.dsp.ramps.controller.PermissionsViewModel')"
+	children="@bind(vm.permissions)">
+	<template name="children" var="cmpPermission">
+		<groupbox title="@load(cmpPermission.permission.getPermissionType())" sclass="permission-group">
+		
+			<hlayout sclass="permission-radios">
+				<radiogroup > 
+					<radio label="PUBLIC"  
+						onCheck="@command('givePermissions',level='PUBLIC',selectedPermission =cmpPermission)" 
+						checked="@bind(cmpPermission.publicComposition)" disabled="${cmpPermission.permission.getPermissionType()=='EDIT'}"/>
+					<radio label="PRIVATE" 
+						onCheck="@command('givePermissions',level='PRIVATE',selectedPermission =cmpPermission)" 
+						checked="@bind(cmpPermission.privateComposition)" disabled="${cmpPermission.permission.getPermissionType()=='EDIT'}"/>
+					<radio label="CUSTOM" 
+						onCheck="@command('givePermissions',level='CUSTOM',selectedPermission =cmpPermission)" 
+						checked="@bind(cmpPermission.customComposition)" disabled="${cmpPermission.permission.getPermissionType()=='EDIT'}"/>
+				</radiogroup >
+			</hlayout>
+		
+			<hlayout visible="@load(cmpPermission.customComposition) @load(cmpPermission.customComposition, after='givePermissions')">
+				<listbox width="250px" height="200px" rows="5" multiple="true" checkmark="true"
+					model="@bind(vm.allGroups)" 
+					selectedItems="@bind(cmpPermission.selectedGroups)" 
+					onSelect="@command('giveGroupPermissions',param=event,selectedPermission =cmpPermission)" emptyMessage="@bind(vm.groupAccessError)">
+					
+					<listhead>
+						<listheader label="Groups">
+						</listheader>
+					</listhead>
+					<template name="model" var="group">
+						<listitem label="@load(group)" ></listitem>
+					</template>
+					
+				</listbox>
+				
+				
+				<listbox width="250px" height="200px" rows="5" 
+					model="@load(cmpPermission.selectedUsers) @load(cmpPermission.selectedUsers, after={'chooseUsers', 'onDeleteUser'})" multiple="true">
+					<listhead>
+						<listheader label="Users"></listheader>
+					</listhead>
+					
+					<template name="model" var="selectedUser">
+						<listitem>
+							<listcell label="@bind(selectedUser)">
+								<button iconSclass="z-icon-trash-o" sclass="img-btn"  style="float:right" 
+									onClick="@command('onDeleteUser',user = selectedUser,selectedPermission =cmpPermission)"></button>
+							</listcell>
+						</listitem>
+					</template>
+					
+					<listfoot>
+						<listfooter>
+						<hbox>
+							<bandbox placeholder="Add Users" hflex="1" autodrop="true" 
+								onChanging="@command('onChangingUsers',param=event)">
+								
+								<bandpopup width="250px" height="100px" sclass="adduserbandPopup">
+									<listbox vflex= "1"  model="@bind(vm.filteredUsers)" 
+										onSelect="@command('chooseUsers',param=event,selectedPermission =cmpPermission)" emptyMessage="@bind(vm.userAccessError)">
+										<template name="model" var="user">
+											<listitem label="@bind(user)"></listitem>
+										</template>
+									</listbox>
+								</bandpopup>
+							</bandbox>
+						</hbox>
+						</listfooter>
+					</listfoot>
+				</listbox>
+			</hlayout>
+			
+		</groupbox>
+	</template>
+</vlayout>

@@ -1,0 +1,63 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan base-package="org.hpccsystems.dsp.service.impl, org.hpccsystems.dsp.dao.impl" >
+	</context:component-scan>
+	
+	<bean id="mySQLDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ramps" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+		<!--   controlling pool size -->
+		<property name="maxPoolSize" value="50" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxIdleTimeExcessConnections" value="1800" />
+		<!--   Testing the  connection to avoid stale/dead connections -->
+		<property name="testConnectionOnCheckout" value="true" />
+		<property name="preferredTestQuery" value="SELECT 1" />
+		<!--   enable caching of statements to improve the performance -->
+		<property name="maxStatements" value="100" />
+	</bean> 
+	
+	<!-- 
+		upstream Database configuration is only required when composition promotion is needed
+		Leave following bean configuration with empty tags when upstream DB is not available
+	-->
+	<bean id="upstreamDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/upstream" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+		<!--   controlling pool size -->
+		<property name="maxPoolSize" value="50" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxIdleTimeExcessConnections" value="1800" />
+		<!--   Testing the  connection to avoid stale/dead connections -->
+		<property name="testConnectionOnCheckout" value="true" />
+		<property name="preferredTestQuery" value="SELECT 1" />
+		<!--   enable caching of statements to improve the performance -->
+		<property name="maxStatements" value="100" />
+	</bean> 
+	
+	<bean id="mbsDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">	
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://URL:3306/mbs" />
+		<property name="user" value="user" />
+		<property name="password" value="pass" />
+		<property name="maxPoolSize" value="40" />
+		<property name="minPoolSize" value="30" />
+		<property name="maxIdleTimeExcessConnections" value="100" />
+		<!--   Testing the  connection to avoid stale/dead connections -->
+		<property name="testConnectionOnCheckout" value="true" />
+		<property name="preferredTestQuery" value="SELECT 1" />
+	</bean>
+
+</beans>

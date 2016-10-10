@@ -1,0 +1,56 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vbox apply="org.hpccsystems.dsp.ramps.controller.ProcessController" hflex="1" vflex="1">
+	<hbox align="center" pack="end" hflex="1" id="searchHbox">
+		<hlayout id="filterDisplayContainer" visible="false" style="border: 1px solid rgb(204, 204, 204);">
+			<button id="removeFilters" iconSclass="z-icon-times" class="img-btn"></button>
+			<label id="filterStatus"></label>
+		</hlayout>
+		
+		<space hflex="1"></space>
+		
+		<combobutton label="${labels.dspFilter}" sclass="filter-btn" id="filterBtn">
+			<popup id="searchoptionpopup" class="filter-btn-popup popup" width="350px">
+				<listbox>
+					<listitem>
+						<listcell label="${labels.processID}"></listcell>
+						<listcell>
+							<textbox id="id" hflex="1"></textbox>
+						</listcell>
+					</listitem>
+					<listitem>
+						<listcell label="${labels.status}"></listcell>
+						<listcell>
+							<textbox id="status" hflex="1"></textbox>
+						</listcell>
+					</listitem>
+					<listfoot>
+						<listfooter>
+							<button label="${labels.dspClear}" id="clear"></button>
+						</listfooter>
+						<listfooter>
+							<button label="${labels.apply}" id="apply" style="float:right"></button>
+						</listfooter>
+					</listfoot>
+				</listbox>
+			</popup>
+		</combobutton>
+		
+		<button label="${labels.dspRefresh}" autodisable="true" id="refreshButton" iconSclass="z-icon-refresh" sclass="refresh-btn" />
+		
+		<timer id="timer" delay="5000"></timer>
+	</hbox>
+	
+	<grid mold="paging" vflex="1" autopaging="true" id="processList"
+		 emptyMessage="${labels.noProcess}" span="true">
+		<columns sclass="viewprocess-gridheader">
+			<column label="${labels.processID}" sort="auto('id')" hflex="min"/>
+			<column label="${labels.projectName}" sort="auto('projectName')" hflex="min"/>
+			<column label="${labels.status }" sort="auto('status')" hflex="min"/>
+			<column id="dateColumn" label="${labels.dspDateTime}" sort="auto('date')" hflex="min"/>
+			<column label="${labels.creator}" sort="auto('runner')" hflex="min"/>
+			<column id = "actionColumn" label="${labels.dspActions}" hflex="min"/>
+		</columns>
+		<rows>
+		</rows>
+	</grid>
+</vbox>

@@ -1,0 +1,82 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div id="dashboardContainer"
+	vflex="1" hflex="1" apply="org.hpccsystems.dsp.dashboard.controller.OutputsController">
+	
+	<vlayout vflex="1" hflex="1">
+		<hbox pack="center" visible="false" id="titleHolder" hflex="1">
+			<label id="title" sclass="h4"></label>	
+		</hbox>
+
+		<hlayout id="toolset">
+			<combobutton id="viewToggleButton" visible="false" label="${labels.defaultView}" width="190px" autodrop="true" sclass="view-toggle-btn">
+				<popup zclass="popup">
+					<listbox width="190px" nonselectableTags="*">
+						<listitem>
+							<listcell id="otherViewBtn" label="${labels.personalizedView}"/>
+						</listitem>
+					</listbox>
+				</popup>
+			</combobutton>
+			<space></space>
+			
+			<hlayout id="gcidBox" visible="false">
+				<label value="${labels.layourGCID}" style="vertical-align:center;"/>
+				<combobox id="gcidCombobox" model="${$composer.gcidModel}" readonly="true" />
+			</hlayout>
+			
+			<space></space>
+			
+			<label id="lastRunLabel"></label>
+			
+			<hbox hflex="1" pack="end">
+				<button sclass="editbtn" iconSclass="fa fa-tasks"
+					label="${labels.updateFilters}" popup="scoredForm, after_center"
+					if="${$composer.isScoredSearchForm}" />
+				<button sclass="editbtn" iconSclass="z-icon-cogs"
+					label="${labels.dbdLayoutDesignerBtn}" id="editLayout">
+				</button>
+				
+				<combobutton iconSclass="z-icon-save" id="layoutSave" autodisable="true" label="${labels.saveLayout}" sclass="savelayout-btn" autodrop="false" visible="false">
+					<popup zclass="popup" id="saveLayoutPopup">
+						<listbox width="270px" nonselectableTags="*">
+							<listitem>
+								<listcell id="saveGCIDLayout" label="${labels.saveGCIDBasedLayout}" iconSclass="z-icon-save" />
+							</listitem>
+							<listitem>
+								<listcell id="saveAsDefaultView" label="${labels.saveAsDefaultView}"  iconSclass="z-icon-save" />
+							</listitem>
+							<listitem>
+								<listcell id="saveAsPersonalizedView" label="${labels.saveAsPersonalizedView}"  iconSclass="z-icon-save" />
+							</listitem>
+						</listbox>
+					</popup>
+				</combobutton>
+				
+				<button sclass="editbtn" iconSclass="z-icon-close"
+					label="${labels.closeLayout}" id="closeLayout" visible="false">
+				</button>
+				<button id="editbtn" if="${$composer.canEditLayout and not $composer.isRampsConfig}"
+					iconSclass="z-icon-cog" sclass="wizard-btn"
+					style="margin-left:5px;">
+					${labels.dspEdit}
+				</button>
+				<button iconSclass="fa fa-share" label="${labels.share}" popup="sharePopup,after_end"/>				
+				<button sclass="printbtn" iconSclass="z-icon-print"
+					label="${labels.print}" onClick='Clients.evalJavaScript("printSVG(\"" + self.getUuid() + "\");")'>
+				</button>
+			</hbox>
+			<popup id="sharePopup" zclass="popup">
+				<textbox multiline="true" id="shareURL" width="300px" rows="3"></textbox>
+			</popup>
+		</hlayout>
+
+		<div id="chartHolder" vflex="1" hflex="1" >
+
+		</div>
+	</vlayout>
+	<popup id="scoredForm" sclass="scoredForm" if="${$composer.isScoredSearchForm}">
+		<div width="450px" id="formDiv">
+		
+		</div>
+	</popup>
+</div>

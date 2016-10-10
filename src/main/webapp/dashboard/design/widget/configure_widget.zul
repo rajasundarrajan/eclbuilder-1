@@ -1,0 +1,43 @@
+<tabbox sclass="configure-widget-tabbox" vflex="1" hflex="1" apply="org.hpccsystems.dsp.dashboard.controller.WidgetController">
+	<tabs sclass="configure-widget-header">
+		<tab id="chooseWidgetTab" class="config-tab" iconSclass="z-icon-check-circle">${labels.chooseWidget}</tab>
+		<tab id="datasourceTab" class="config-tab" iconSclass="z-icon-check-circle">${labels.datasource}</tab>
+		<tab id="configureTab" class="config-tab" iconSclass="z-icon-check-circle">${labels.configure}</tab>	
+	</tabs>
+	<toolbar>
+		<button id="closeBtn" iconSclass="z-icon-times"></button>
+	</toolbar>
+	<tabpanels>
+		<tabpanel id="chooseWidgetTabpanel">
+			<vbox hflex="1" vflex="1">
+				<include id="chartListInclude" vflex="1"></include>
+				<hbox hflex="1" pack="end">
+					<button id="cancel1" class="wizard-btn">${labels.cancel}</button>
+					<button id="chooseWidgetNext" class="wizard-btn">${labels.next}</button>
+				</hbox>
+			</vbox>
+		</tabpanel>
+		<tabpanel>
+			<vbox hflex="1" vflex="1">
+				<include id="datasourceInclude" vflex="1"></include>
+				<hbox hflex="1">
+					<button id="datasourcePrevious" class="wizard-btn">${labels.previous}</button>
+					<space hflex="1"></space>
+					<button id="cancel2" class="wizard-btn">${labels.cancel}</button>
+					<button id="datasourceNext" class="wizard-btn">${labels.next}</button>
+				</hbox>
+			</vbox>
+		</tabpanel>
+		<tabpanel>
+			<vbox hflex="1" vflex="1">
+				<include id="configureInclude" vflex="1" hflex="1"></include>
+				<hbox hflex="1">
+					<button id="configurePrevious" class="wizard-btn">${labels.previous}</button>
+					<space hflex="1"></space>
+					<button id="cancel3" class="wizard-btn">${labels.cancel}</button>
+					<button id="finish" autodisable="self" class="wizard-btn">${labels.finish}</button>
+				</hbox>
+			</vbox>
+		</tabpanel>
+	</tabpanels>
+</tabbox>

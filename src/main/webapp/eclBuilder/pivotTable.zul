@@ -1,0 +1,58 @@
+<zk  xmlns:h="native">
+<window closable="true" 
+	title="Pivot View of Data" width="90%" height="75%" class="PivotWindow" apply="org.hpccsystems.dsp.eclBuilder.controller.PivotTableController">
+	<h:div style="height:Inherit !Important; overflow:scroll !Important;">
+	 <h:title>Pivot Demo</h:title>
+        <!-- external libs from cdnjs -->
+
+        <!-- PivotTable.js libs from /pivotwebapp -->
+        <h:link rel="stylesheet" type="text/css" href="../css/pivot.css"/>
+        <h:style>
+            body {font-family: Verdana;}
+        </h:style>
+        
+        <!-- optional: mobile support with jqueryui-touch-punch -->
+        
+        <!-- for examples only! script to show code to user -->
+
+
+        <script type="text/javascript" src="../js/pivot.js"></script>
+
+    <hbox id="zk-hbox-id" visible="true" style="overflow : scroll !Important;">
+    
+    <h:body >
+	<div id="output" class="output" />
+    </h:body>
+  
+    </hbox>
+      </h:div>
+    </window>
+    <script>
+    
+ <![CDATA[
+        function loadContent(wuId, hpccId , resultName) {
+            $.ajax({
+                url: "jsonECLRun.do",
+                data : {"hpccId" : hpccId, "wuId" : wuId, "resultName" : resultName },
+                type: "post",
+                // callback handler that will be called on success
+                success: function(response, textStatus, jqXHR){
+                		try{
+                		var json1 = jQuery.parseJSON(response);
+                		var json = json1.formHtml;
+                		data = JSON.parse(json);
+	                		$(".output").pivotUI(data, {
+					                rows: [],
+					                cols: [],
+					                aggregatorName: "Integer Sum",
+					                vals: [],
+					                rendererName: "Heatmap"
+					            });
+                		}catch(e){
+                		alert(e);
+                		}
+     					}
+            	});
+        	}
+    ]]></script>
+   </zk>

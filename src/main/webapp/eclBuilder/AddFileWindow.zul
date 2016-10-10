@@ -1,0 +1,18 @@
+<window  apply="org.hpccsystems.dsp.eclBuilder.controller.AddFileController" closable="true" 
+  width="350px" vflex="1" title="Choose File Addition Options">
+  
+ 	<hbox>
+        <groupbox vflex="true" closable="false" width="330px">
+            <caption label="Select Files" />
+            <vlayout spacing="10px">
+                <button id="ImportFiles" label="Add New Files" style="background-color:#DFDFDF" width="325px"/>
+                </vlayout><vlayout spacing="10px">
+               	<label width="325px" value="OR" style="padding-left: 150px"/>
+                </vlayout>
+                <vlayout spacing="325px" >
+                <button id="ChooseFiles" label="Select Existing Files" style="background-color:#DFDFDF" width="325px"/>
+            </vlayout>
+        </groupbox>
+       </hbox>
+	<include id="AddFileInclude"/>
+</window>

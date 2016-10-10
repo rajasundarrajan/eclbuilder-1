@@ -1,0 +1,49 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout apply="org.hpccsystems.dsp.admin.controller.WebAppController">
+
+	
+
+	<label sclass="h4">${labels.admWebAppConfig}</label>
+	
+	<hlayout  width="800px" class="wep_app_config">
+		<label>${labels.isdevmode}</label>
+		<checkbox id="isDevMode" checked="${$composer.isDevModeEnabled()}"></checkbox>		
+	</hlayout>
+	
+	<hlayout  width="800px" class="wep_app_config">
+		<label>${labels.onmaintenance}</label>
+		<checkbox id="isMaintenanceMode" checked="${$composer.isMaintenanceModeEnabled()}"></checkbox>		
+	</hlayout>
+	
+	<hlayout  width="800px" class="wep_app_config">
+		<label width="500px">${labels.dspSessionTimeout}</label>
+		<intbox id="sessionTimeout"></intbox>		
+	</hlayout>
+	
+	<hlayout  width="800px" class="wep_app_config">
+		<label width="500px">${labels.fileSprayRetries}</label>
+		<intbox id="sprayRetryCount" value="${$composer.getSprayRetryCount()}"></intbox>		
+	</hlayout>
+	
+	<hlayout width="800px" class="wep_app_config">
+		<label width="500px">${labels.fileSizeInMb}</label>
+		<intbox id="fileSize" value="${$composer.getStaticFileSize()}"></intbox>		
+	</hlayout>
+	
+	<hlayout width="800px" class="wep_app_config">
+		<button id="save" style="float:left"  iconSclass="fa fa-floppy-o" label="${labels.dspSave}"></button>
+	</hlayout>
+	
+	<separator />
+	<separator />
+	
+	<label sclass="h4">${labels.dspReloadOrRefresh}</label>
+	
+	<hlayout width="800px" class="wep_app_config">
+	
+		<button id="reloadHipie" style="float:left"  iconSclass="z-icon-refresh" label="${labels.admReloadHipie}"></button>
+		<button id="refreshRepository" style="float:left"  iconSclass="z-icon-refresh" label="${labels.admRefreshRepository}"></button>
+	
+	</hlayout>
+	
+</vlayout>

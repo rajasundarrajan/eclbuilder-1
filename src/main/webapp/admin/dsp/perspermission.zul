@@ -1,0 +1,23 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<div apply="org.hpccsystems.dsp.admin.controller.PerspectivePermissionController" vflex="1" id="persPermissionView">
+	<vlayout vflex="1" >
+		<grid sclass="perpectiveGrid"  id="perpectiveGrid" hflex="1" 
+			model="${$composer.perspectiveModel }">							        
+	        <columns>
+	            <column hflex="1" label="${labels.admPerspectivesGroupCode}"></column>
+	            <column hflex="1" iconSclass="fa fa-cubes" label="${labels.dspComposition}"></column>
+	            <column hflex="1" iconSclass="fa fa-pie-chart" label="${labels.admDashboard}"></column>
+	        </columns>
+	        
+	        <template name="model">
+				<row  sclass="narrow" value="${each.value}">
+					<label value="${each.key}"></label>
+					<checkbox checked="${each.value.canViewRamps()}" forward="onCheck = perpectiveGrid.onRampsCheck"></checkbox>
+					<checkbox checked="${each.value.canViewDashboard()}" forward="onCheck = perpectiveGrid.onDashboardCheck"></checkbox>
+				</row>
+			</template>
+	     </grid>       
+											
+		<button id="save" style="float:right"  label="${labels.dspSave}"></button>
+	</vlayout>
+</div>

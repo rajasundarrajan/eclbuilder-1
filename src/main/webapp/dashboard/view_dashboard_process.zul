@@ -1,0 +1,6 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window title="Processes"
+	apply="org.hpccsystems.dsp.dashboard.controller.DashboardProcessController"
+	closable="true" vflex="1" hflex="1" id="processWindow">
+	<include id="contentInclude"></include>
+</window>

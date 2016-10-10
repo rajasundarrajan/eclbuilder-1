@@ -1,0 +1,8 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window border="normal" closable="true"  
+	apply="org.hpccsystems.dsp.ramps.controller.ViewDUDController">
+	<caption iconSclass="fa fa-code" id="captionDUD" label="${labels.viewDUD}"></caption>
+	<div width="600px" height="500px" style="overflow:scroll">
+		<label multiline="true" id="dudContent" ></label>
+	</div>
+</window>

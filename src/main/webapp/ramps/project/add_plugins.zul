@@ -1,0 +1,73 @@
+<window apply="org.hpccsystems.dsp.ramps.controller.AddPluginController" vflex="1"
+	id="pluginsWindow" title="${labels.dspPlugInAvailable}" closable="true">
+
+	<popup id="repoPop" width="245px" zclass="popup"
+		sclass="repoPopup">
+		<hbox hflex="1" align="center" sclass="repoPopupCont">
+			<label hflex="1">${labels.repository}</label>
+			<combobox id="repoList" placeholder="${labels.chooseRepo}"
+				hflex="1" readonly="true" />
+		</hbox>
+	</popup>
+	<hbox vflex="1" hflex="1">
+		<tree id="pluginTree" vflex="1" width="400px" multiple="false"
+			sclass="pluginTreeClass">
+			<treecols>
+				<treecol label="${labels.dspPluginList}"
+					style="white-space:normal;">
+					<button iconSclass="fa fa-database" zclass="img-btn"
+						style="float:right; color:white;cursor:pointer;"
+						autodisable="true" tooltiptext="${labels.changeRepo}" id="repoPopbtn" visible="false"
+						popup="repoPop,after_end" />
+					<button iconSclass="z-icon-refresh" zclass="img-btn"
+						style="float:right; color:white;cursor:pointer;"
+						autodisable="true" tooltiptext="${labels.dspRefresh}" id="refresh" />
+				</treecol>
+			</treecols>
+			<auxhead id="pluginHelpHeader" visible="false">
+				<auxheader sclass="repositoryHbox">
+					<label value="${labels.pluginHelp}" multiline="true"
+						sclass="plugin-help" />
+				</auxheader>
+			</auxhead>
+			<treechildren vflex="1" id="pluginTreeChildren">
+			</treechildren>
+		</tree>
+		<panel title="${labels.dspPluginPreview}" vflex="1" hflex="1"
+			border="normal">
+			<panelchildren>
+				<tabbox id="detailsTab" hflex="1" vflex="1">
+					<tabs id="tabs">
+						<tab iconSclass="z-icon-th-list"
+							label="${labels.dspInputParameters}" />
+						<tab iconSclass="z-icon-book"
+							label="${labels.dspPluginDescription}" />
+						<tab iconSclass="z-icon-code"
+							label="${labels.dspSource}"
+							if="${sessionScope.user.getPermission().getRampsPermission().canViewPluginSource() || sessionScope.user.isGlobalAdmin()}" />
+						<tab iconSclass="fa fa-file-text-o"
+							label="${labels.readMe}"/>
+					</tabs>
+					<tabpanels sclass="plugin-tabspanels">
+						<tabpanel id="inputParameter">
+							<html sclass="plugin-form" id="form"></html>
+						</tabpanel>
+						<tabpanel sclass="plugin-desc">
+							<label multiline="true" id="description"></label>
+						</tabpanel>
+						<tabpanel sclass="plugin-desc"
+							if="${sessionScope.user.getPermission().getRampsPermission().canViewPluginSource() || sessionScope.user.isGlobalAdmin()}">
+							<label pre="true" multiline="true"
+								id="source">
+							</label>
+						</tabpanel>
+						<tabpanel sclass="plugin-desc">
+							<label pre="true" multiline="true"
+								id="readMe"/>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</panelchildren>
+		</panel>
+	</hbox>
+</window>

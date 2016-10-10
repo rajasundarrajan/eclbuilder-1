@@ -1,0 +1,7 @@
+<div sclass="page-footer">
+		<div sclass="row">
+			<div sclass="col-xs-12 col-sm-6">
+				<span sclass="txt-color-white">${labels.copyright1} © ${labels.copyright2}</span>
+			</div>				
+		</div>
+</div>

@@ -1,0 +1,114 @@
+<div apply="org.hpccsystems.dsp.dashboard.controller.HomeController" vflex="1">
+	<tabbox id="homeTabbox" vflex="1" hflex="1">
+		<tabs sclass="home-tabs">
+			<tab label="${labels.browseDashboard}" id="homeTab">
+			</tab>
+		</tabs>
+
+		<tabpanels>
+			<tabpanel sclass="grey-background">
+			<vlayout vflex="1">
+				
+				<hbox hflex="1" pack="end" spacing="5px">
+					<button id="clearFilter" iconSclass="z-icon-times" autodisable="true" label="${labels.clearFilter}" visible="false"/>
+					<button id="newDashboard" iconSclass="z-icon-plus" autodisable="true" class="purple-btn" label="${labels.newDashboard}" if="${sessionScope.user.canCreate()}"/>
+					<button id="promoteBtn" iconSclass="fa fa-paper-plane" autodisable="true" visible="false" label="${labels.promote}"/>
+					<menubar sclass="sortMenu">
+						<menu label="View" id="viewMenu">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="compoCreatedMenu" iconSclass="fa fa-user" label="${labels.dashboardsCreatedByMe}"></menuitem>
+								<menuitem id="sharedCompoMenu" iconSclass="fa fa-users" label="${labels.dashboardsSharedWithMe}"></menuitem>
+								<menuitem id="favCompomenu" iconSclass="fa fa-star" label="${labels.dashboardFav}"></menuitem>
+								<menuitem id="mostAccessedCompomenu" iconSclass="fa fa-wifi" label="${labels.mostAccesseddashboard}"></menuitem>
+								<menuitem id="allCompoMenu" iconSclass="fa fa-list-ul" label="${labels.allDashboards}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+					<menubar sclass="sortMenu" id="sortMenuBar">
+						<menu label="${labels.sort}" id="sortMenuDashboard">
+							<menupopup sclass="sortMenuPopup">
+								<menuitem id="authorItemDashboard" iconSclass="fa fa-sort-amount-asc" label="${labels.byAuthor}"></menuitem>
+								<menuitem id="dateItemDashboard" iconSclass="fa fa-sort-amount-asc" label="${labels.byDate}"></menuitem>
+								<menuitem id="nameItemDashboard" iconSclass="fa fa-sort-amount-asc" label="${labels.dspName}"></menuitem>
+							</menupopup>
+						</menu>
+					</menubar>
+					<div>					
+						<textbox popup="searchPopup, position=after_end" width="200px" id="searchTextBox" placeholder="${labels.searchDashboards}" style="padding-right:30px;"/>					
+						<span class="glyphicon glyphicon-search" style="position:absolute;right:10px;top:10px;"></span> 
+				        <popup id="searchPopup" width="200px" zclass="popup">	    	
+							<listbox id="searchListBox" hflex="1" multiple="false" sclass="tableborder-collapse-none" emptyMessage="${labels.noresultsfound}">
+							<listhead id="listHead" sclass="recent-modified-header">
+								<listheader  label="${labels.recentlyModified}"/>
+				            </listhead>
+							</listbox>	        
+				        </popup>
+					</div>
+				</hbox>
+				
+                <grid mold="paging" vflex="1" id="entityList" autopaging="true" visible="false" emptyMessage="${labels.noDashboardAvailable}">
+	             	<columns></columns>
+		           	  <rows></rows>
+				  </grid>
+				
+				   <anchorlayout id="thumbnailLayout" vflex="1"
+                  	visible="true" apply="org.zkoss.bind.BindComposer"
+                	viewModel="@id('vm') @init('org.hpccsystems.dsp.dashboard.controller.DashboardGrid')"
+                	children="@bind(vm.dashboards)" sclass="gridviewLayout">
+                	<template name="children" var="dashboard">
+                		<anchorchildren onClick="@command('selectEntity',entity=dashboard)" 
+                			sclass="gridAnchor" height="270px"
+                					width="250px">
+
+                			<vlayout vflex="1">
+                				<vlayout sclass="gridLayout" vflex="1" hflex="1">
+	                				<hlayout vflex="1" hflex="1">
+		                				<listbox if="${not empty dashboard.charts}" model="@load(dashboard.charts)" width="75px">
+	                						<template name="model" var="chart">
+	                							<listitem>
+	                								<listcell sclass="mini-chart" tooltiptext="@bind(chart.name)" iconSclass="@bind(chart.icon)" label="@bind(chart.name)"></listcell>
+	                							</listitem>
+	                						</template>
+	                					</listbox>
+	                					<image sclass="myimg" hflex="1">
+	                						<attribute name="onCreate">
+	                							this.self.setSrc("/images/thumbnail/chart_db.png");
+	                						</attribute>
+	                					</image>
+	                				</hlayout>
+	                				<hlayout class="grid-buttons">
+	                					<button iconSclass="z-icon-edit" zclass="img-btn" style="color:orange;cursor:pointer" tooltiptext="${labels.editDashBoard}" if="${sessionScope.user.canEdit()}" onClick="@command('editDashboard',gridViewDashboard=dashboard)"/>
+	                					<button iconSclass="z-icon-copy" zclass="img-btn" style="color:blue;cursor:pointer" if="${sessionScope.user.canCreate()}" tooltiptext="${labels.cloneDasboard }" onClick="@command('cloneDashboard',gridCloneDashboard=dashboard)"/> 
+	                					<button iconSclass="z-icon-trash-o" zclass="img-btn"  style="color: red;cursor:pointer"  if="${sessionScope.user.canEdit()}" tooltiptext="${labels.deleteTitle}" onClick="@command('deleteDashboard',gridViewDashboard=dashboard)"/>
+	                							<button iconSclass="${dashboard.isFavourite ? 'fa fa-star' : 'fa fa-star-o'}" 
+	                						zclass="img-btn img-btn-fav"  style="color: grey;cursor:pointer"  if="${sessionScope.user.canEdit() }" tooltiptext="${labels.favorite}" onClick="@command('favoriteDashboard',gridViewDashboard=dashboard)" />
+	                				</hlayout>
+                				</vlayout>
+                				<hlayout>
+                					<label value="@bind(dashboard.label)" if="${sessionScope.user.canViewProject()}" tooltiptext="${labels.viewDashboard}" onClick="@command('viewDashboard',gridViewDashboard=dashboard)" style= "cursor:pointer" sclass="h4"/>
+                					<label value="@bind(dashboard.label)" if="${! sessionScope.user.canViewProject()}"   sclass="h4"/>
+                					<label value="${labels.by} " sclass="small"/>
+                					<label value="@bind(dashboard.author)" sclass="small" tooltiptext="@load(dashboard.author)"/>
+                				</hlayout>
+                					<hlayout>
+                					<label value="${labels.updated}" sclass="small"/>
+                					<label value="@load(dashboard.getFormattedLastModifiedDate())" sclass="small" />
+                				</hlayout>
+                			</vlayout>
+                		</anchorchildren>
+                	</template>
+                </anchorlayout>
+                	
+				<hlayout sclass="viewSelector">
+                	<radiogroup id="viewSelectRadioGroup" visible="false">
+                		<radio id="toggleGridView" label="${labels.gridview}"
+                			sclass="viewSelectorRadioButton"/>
+                		<radio id="toggleListView" label="${labels.listview}"
+                			sclass="viewSelectorRadioButton"/>
+                	</radiogroup>
+                </hlayout>
+				</vlayout>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>

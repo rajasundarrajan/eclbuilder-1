@@ -1,0 +1,62 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<vlayout
+	apply="org.hpccsystems.dsp.dashboard.controller.DashboardDatasourceController"
+	vflex="1" hflex="1">
+
+	<tabbox vflex="1">
+		<tabs visible="false">
+			<tab id="recentTab"></tab>
+			<tab id="browsertab" selected="false"></tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<label value="Used Datasources" sclass="datasrclbl"/>
+				<hbox vflex="1">					
+						<listbox id="latestFiles"
+							emptyMessage="No Latest Files" vflex="1" sclass="datasrcfiles">
+							<listhead>
+								<listheader
+									label="Logical Files">
+
+								</listheader>
+							</listhead>
+						</listbox>
+						<listbox id="latestQueries"
+							emptyMessage="No Latest Queries" vflex="1" sclass="datasrcqueries">
+							<listhead>
+								<listheader label="Queries">
+
+								</listheader>
+							</listhead>
+						</listbox>
+					
+				</hbox>
+				<grid>
+					<columns>
+						<column width="200px"></column>
+						<column></column>
+					</columns>
+					<rows>
+						<row>
+							<label value="Datasource" />
+							<hlayout>
+								<textbox hflex="1"
+									id="selectedRecentFile" placeholder="Choose a datasource"
+									readonly="true" style="font-weight:600;" />
+								<button id="loadBrowserButton" iconSclass="z-icon-folder-open"
+									label="Choose New Datasource" style="float:middle">
+								</button>
+							</hlayout>
+						</row>
+					</rows>
+				</grid>
+
+
+			</tabpanel>
+			<tabpanel>
+				<include id="browserInclude" vflex="1"></include>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+
+</vlayout>

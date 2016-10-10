@@ -1,0 +1,63 @@
+<vlayout vflex="1" hflex="1" id="editWindowLayout"
+	apply="org.hpccsystems.dsp.dashboard.controller.widgetconfiguration.PieChartController"
+	sclass="configure-tab-vlayout">
+	<hlayout vflex="1" hflex="1">
+		
+		<vlayout hflex="1" vflex="1">
+			<tree vflex="1" id="measureTree">
+				<treecols>
+					<treecol label="${labels.measures}">
+						<button id="measureSort" zclass="img-btn" iconSclass="fa fa-sort-amount-asc"></button>
+					</treecol>
+				</treecols>
+			</tree>
+			<tree vflex="1" id="attributeTree">
+				<treecols>
+					<treecol label="${labels.attributes}">
+					<button id="attributeSort" zclass="img-btn" iconSclass="fa fa-sort-amount-asc"></button>
+					</treecol>
+				</treecols>
+			</tree>
+		</vlayout>
+		<vlayout hflex="1" vflex="1">
+			<listbox vflex="1" id="weightListbox" droppable="true">
+				<listhead>
+					<listheader label="${labels.weight}"></listheader>
+				</listhead>
+			</listbox>
+			<listbox vflex="1" id="labelListbox" droppable="true">
+				<listhead>
+					<listheader label="${labels.label}"></listheader>
+				</listhead>
+			</listbox>
+		</vlayout>
+		<vlayout id="inputParameterLayout"  hflex="1" vflex="1" visible="false">
+			<listbox vflex="1" id="inputParameterListbox">
+				<listhead>
+					<listheader label="${labels.dspInputParameters}"></listheader>
+				</listhead>
+			</listbox>
+		</vlayout>
+		<vlayout hflex="1" vflex="1" id="filterLayout" visible="false">
+			<listbox vflex="1" id="filterbox" droppable="true">
+				<listhead>
+					<listheader label="${labels.dspFilter}"></listheader>
+				</listhead>
+			</listbox>
+
+		</vlayout>
+		<vlayout vflex="1" hflex="1" visible="false">
+			<listbox nonselectableTags="*">
+				<listhead>
+					<listheader label="${labels.limitRecords}"></listheader>
+				</listhead>
+				<listitem>
+					<listcell label="${labels.noOfRecords} :"/>
+					<listcell>
+						<intbox id="records"></intbox>
+					</listcell>
+				</listitem>
+			</listbox>
+		</vlayout>
+	</hlayout>
+</vlayout>

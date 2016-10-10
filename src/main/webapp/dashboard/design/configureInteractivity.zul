@@ -1,0 +1,120 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window
+	apply="org.hpccsystems.dsp.dashboard.controller.InteractivityController"
+	closable="true" vflex="1" hflex="1" id="container" sclass="interactivityWindow">
+	<caption iconSclass="fa fa-external-link"
+		label="${labels.configureGlobalFilter}">
+	</caption>
+	<vlayout vflex="1">
+			<hlayout vflex="1">
+				<panel id="sourcePanel" sclass="sourcePanel" hflex="1" vflex="1">
+					<caption>${labels.defineInteraction}</caption>
+					<panelchildren>
+						<vlayout sclass="sourcePanelvLayout" vflex="1">
+							<vlayout vflex="1" style="overflow:auto">
+								<label sclass="interactivity-head">
+									${labels.controllingWidget}
+								</label>
+								<label>
+									${labels.chooseSourceWidget}
+								</label>
+								<hlayout hflex="1">
+									<label> ${labels.actionColon} </label>
+									<label id="actionLabel">${labels.click}</label>
+									<combobox id="actions" visible="false"/>
+									<button id="editAction" iconSclass="z-icon-pencil" sclass="source-edit-btn"/>
+								</hlayout>
+								<hlayout sclass="interactionLayout">
+									<vlayout>
+										<label value="Widget"></label>
+										<combobox id="srcWidgetsCombo"/>
+									</vlayout>
+									<vlayout>
+										<label value="Field"></label>
+										<combobox id="srcFieldsCombo"/>
+									</vlayout>
+								</hlayout>
+								<label sclass="interactivity-head">
+										${labels.dependentWidget}
+								</label>
+								<label>
+									${labels.chooseWidgetFilter}
+								</label>
+								<listbox id="targetChartsListbox" checkmark="true" 
+									vflex="1" sclass="targetChartsListbox">
+									
+								</listbox>
+							</vlayout>
+							<hbox hflex="1" pack="end">
+									<button label="${labels.addInteraction}" autodisable="true"
+										id="addInteractivitySettings" iconSclass="fa fa-plus"
+										sclass="wizard-btn" />
+							</hbox>
+						</vlayout>
+					</panelchildren>
+				</panel>
+				
+			
+				<panel id="labelPanel" vflex="1" title="${labels.existingInteractions}" hflex="1" sclass="rightPanel">
+					<panelchildren style="overflow:auto;">
+						<listbox id="interactivityListbox" model="${$composer.interactivityModel}"
+							emptyMessage="${labels.noInteractions}" sclass="interactivityListbox" vflex="1">
+							
+							<auxhead>
+								<auxheader label="${labels.controllingWidgets}"
+									colspan="4">
+								</auxheader>
+								<auxheader label="${labels.dependentWidget}"
+									colspan="3" sclass="auxwithLeftBorder">
+								</auxheader>
+							</auxhead>
+							
+							<listhead>
+								<listheader label="Action"></listheader>
+								<listheader label="On Widget"></listheader>
+								<listheader label="On Field"></listheader>
+								<listheader width="50px"></listheader>
+								<listheader label="Updates Widget" sclass="listwithLeftBorder"></listheader>
+								<listheader label="Filtering On"></listheader>
+								<listheader width="30px"></listheader>
+							</listhead>
+		
+							<template name="model">
+								<listitem>
+									<listcell label="${each.action}"></listcell>
+									<listcell label="${each.sourceWidget.title}" iconSclass="${each.sourceWidget.chartConfiguration.getFaIcon()}"></listcell>
+									<listcell label="${each.field.column}"></listcell>
+									<listcell iconSclass="fa fa-long-arrow-right"></listcell>
+									
+									<listcell>
+										<vlayout forEach="${each.targets}">
+											<hlayout>
+												<label sclass="${each.widget.chartConfiguration.getFaIcon()} + icon-label"></label>
+												<label>${each.widget.title}</label>
+											</hlayout>
+										</vlayout>
+									</listcell>
+									
+									<listcell>
+										<vlayout forEach="${each.targets}">
+											<label>${each.field.column}</label>
+										</vlayout>
+									</listcell>
+									
+									<listcell>
+										<button iconSclass="z-icon-trash-o" zclass="img-btn" style="color: red; cursor:pointer;" 
+											forward="onClick=interactivityListbox.onDelete(${each})"/>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</hlayout>
+			
+			<hbox hflex="1" pack="end">
+				<button label="${labels.dspSave}" iconSclass="z-icon-save" autodisable="true" id="finishInteractivity" sclass="wizard-btn" />
+				<button label="${labels.cancel}" iconSclass="fa fa-times" autodisable="true" id="cancel" sclass="wizard-btn" forward="container.onClose"/>
+			</hbox>
+	</vlayout>
+</window>

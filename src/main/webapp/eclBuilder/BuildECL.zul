@@ -1,0 +1,156 @@
+<zk  xmlns:h="native">
+
+  <window id="DivId"  apply="org.hpccsystems.dsp.eclBuilder.controller.BuildECLController" closable="true" 
+  width="100%" height="100%" style="background-color:black">
+
+  <tabbox id="tabbox" class="builderTabs" orient="bottom" height="100%">
+	<tabs id="tabs">	
+		<tab label="ECL Builder" id="eclBuilder"/>
+		<tab label="Outputs" id="eclWatch" disabled="true"/>
+		<tab label="Builder History" id="builderHistory" disabled="true"/>
+	</tabs>
+	
+	
+	<tabpanels> 
+		<tabpanel id="eclBuilderPanel" height="100%" style="background-color:#383939">
+        <textbox style="cursor:hand;cursor:pointer" name="builderOldCode" class="builderOldCode"  width="100%" height="100%" multiline="true" id="builderOldCode" visible="false" value="" />
+		
+<borderlayout width="100%" height="100%">
+
+  <north border="none" style="background-color: #757575">
+  			<h:div width="100%" height="100%">
+              <h:div style="float:left" width="30%" height="100%">
+                     <h:label style="font-size:15px;color:white" width="50%" height="100%">Datasets   </h:label> 
+					 <button id="ImportFiles" iconSclass="z-icon-download" height="100%" zclass="img-btn"  style="color:blue;font-size: large;cursor:pointer;" tooltiptext="Import Files" />
+                </h:div>
+               <hlayout style="float:right" height="100%">
+               <button id="joinECL" label="JOIN"  visible="false" style="height:100%;color:white;background-color:#424242 !important"/>
+  				<button id="saveECL" label="Save" style="height:100%;color:white;background-color:#424242 !important" />
+  				<button id="runECL" label="Run"  style="height:100%;color:white;background-color:#424242 !important"/>
+  				
+  			</hlayout>
+  			</h:div>
+  			
+    </north>
+    
+    <west collapsible="true"  width="25%" maxsize="450" border="none" flex="true" splittable="true" style="height:100%" >
+    		<vlayout class="treegrid" width="100%" style="height : Inherit !Important;overflow : scroll !Important;">
+    	   	<tree id="treeGrid" class="treeGrid" width="100%" style="height:Inherit !Important" multiple="true" checkmark="true">
+    		</tree>
+    		</vlayout>
+    </west>
+
+	<center id="centerBorder">
+			<textbox name="builderCode" width="100%" height="100%" multiline="true" id="builderCode" value="" />
+			
+
+    </center>
+    </borderlayout>
+    
+	  	</tabpanel>
+		<tabpanel id="eclWatchPanel" style="overflow:scroll !Important; height:Inherit !Important">
+			<include id="eclBuilderInclude" />
+	    </tabpanel>
+	    <tabpanel id="builderHistoryPanel"  style="overflow:scroll !Important; height:Inherit !Important">
+			<include id="builderHistoryInclude"/>
+	    </tabpanel>
+	    
+    </tabpanels>
+   </tabbox>
+   
+   <script id="codemirrorJS"/>
+   
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	
+	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
+	
+	<script>
+
+ <![CDATA[
+        function downlaodContent(wuId, hpccId , resultName) {
+        
+        zAu.send(new zk.Event(zk.Widget.$(jq(a)), 'onLoadBox', a.value));
+        
+        	/*$('<form>').attr({
+        		action: "downloadECLDataReport.do"
+        	})
+        	.append('<input type="hidden" name="hpccId" value='+hpccId+'>')
+        	.append('<input type="hidden" name="wuId" value='+wuId+'>')
+        	.append('<input type="hidden" name="resultName" value='+resultName+'>')
+        	.submit();
+        	return true;
+            $.ajax({
+                url: "downloadECLDataReport.do",
+                data : {"hpccId" : hpccId, "wuId" : wuId, "resultName" : resultName },
+                type: "post",
+                // callback handler that will be called on success
+                success: function(response, textStatus, jqXHR){
+                window.open(response);
+                		alert('hi');
+     			}error: function (XMLHttpRequest, textStatus, errorThrown) 
+				    	{
+					        alert('Error occurred while opening File template');
+					    }
+            	});*/
+        	}
+    ]]></script>
+    
+    <style>
+		.treeGrid > .z-vlayout-inner{
+		   		height : Inherit !Important;
+    			overflow : scroll !Important;
+		}
+		.z-tree-body{
+			height : Inherit !Important;
+		}
+		.z-icon-caret-right{
+			visibility:hidden !Important;
+		}
+		.z-icon-caret-down{
+			visibility:hidden !Important;
+		}
+		.reportDataGrid > .z-treecell-content, .z-treefooter-content {
+			background-color : White !Important;
+		}
+		.reportDataGrid > .z-treecell-text {
+			color : black !Important;
+		}
+		
+		.builderTabs .z-tab-selected .z-tab-text {
+		    color: lightGrey !Important;
+		}
+	    .builderTabs .z-tab-selected{
+		    background-color: Grey !Important;
+		}
+		.z-paging-text, .z-paging-info{
+		color : Blue !Important;
+		}
+		.z-paging{
+			background-color: #F5F5F5 !Important; 
+		}
+		.builderTabs .z-tab-text {
+			color: #111111!important;
+    		font-weight: bold;
+    	}
+    	
+    	.reportDataGrid .z-column-content {
+    		color: #333;
+      	    background-color: #039BE5 !Important;
+		}
+    	
+    	.reportDataGrid .z-grid-odd  .z-row-inner{
+    		background: #E1F5FE !Important;
+		}
+    	.builderActionButtons {
+    		color:white;background-color:#424242 !important;
+    	}
+    	
+    	.z-grid-body table, .z-grid-header table{
+			width:100% !Important;
+		}
+    </style>
+  </window>
+	
+</zk>

@@ -1,0 +1,111 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window apply="org.hpccsystems.dsp.admin.controller.EditRepositoryController" title="${labels.editRepo}" visible="false"
+	closable="true" sclass="editPanelconnect" width="500px" vflex="1" >
+	<hlayout>
+	<vlayout>
+	<grid hflex="1" sclass="editGridconnect">
+			<rows>
+				<row>
+					<label>${labels.admRepoName}</label>
+					<textbox id="reponame"></textbox>
+				</row>
+				<row>
+					<label>${labels.dspType}</label>
+					<combobox placeholder="Select Type"
+						tooltiptext="${labels.selectType}" id="type">
+					</combobox>
+				</row>
+				<row>
+					<label>${labels.admRepoPath}</label>
+					<textbox id="path"></textbox>
+				</row>
+			</rows>
+		</grid>
+
+
+			<grid id="git" hflex="1" sclass="editGridconnect"
+				visible="false">
+				<rows>
+					<row>
+						<label>${labels.url}</label>
+						<textbox id="url"></textbox>
+					</row>
+					<row>
+						<label>${labels.dspUserName}</label>
+						<textbox id="gitUserName"></textbox>
+					</row>
+					<row>
+						<label>${labels.password}</label>
+						<textbox id="gitPassword" type="password"></textbox>
+					</row>
+
+				</rows>
+			</grid>
+
+			<grid id="hpcc" hflex="1" sclass="editGridconnect"
+				visible="false">
+				<rows>
+					<row>
+						<label>${labels.serverHost}</label>
+						<textbox id="serverHost"></textbox>
+					</row>
+					<row>
+						<label>${labels.espPort}</label>
+						<textbox id="espPort"></textbox>
+					</row>
+					<row>
+						<label>${labels.attributePort}</label>
+						<textbox id="attrPort"></textbox>
+					</row>
+					<row>
+						<label>${labels.dspUserName}</label>
+						<textbox id="hpccUserName"></textbox>
+					</row>
+					<row>
+						<label>${labels.password}</label>
+						<textbox id="hpccPassword" type="password"></textbox>
+					</row>
+					<row>
+					    <label>${labels.isHttps}</label>
+					    <checkbox id="isHTTPS" />
+					</row>
+					
+				</rows>
+			</grid>
+			
+			<grid id="permission" visible="false"  hflex="1" sclass="permissionGrid">
+				<rows >
+					<row>
+						<checkbox label="${labels.isPublic}"
+							id="isPublic" checked="true" sclass="repo-public-checkbox">
+						</checkbox>
+						<listbox width="250px" height="200px" rows="5"
+							multiple="true" id="usersListbox" visible="false">
+							<listhead>
+								<listheader label="Permissions"></listheader>
+							</listhead>
+							<listfoot>
+								<listfooter>
+									<hbox>
+										<bandbox placeholder="Add Users"
+											hflex="1" autodrop="true" id="onSearchUsers">
+											<bandpopup width="250px"
+												height="100px" sclass="adduserbandPopup">
+												<listbox vflex="1"
+													id="searchListbox">
+												</listbox>
+											</bandpopup>
+										</bandbox>
+									</hbox>
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</row>
+
+				</rows>
+			</grid>
+	</vlayout>
+	
+	</hlayout>
+		<button id="updateRepository">${labels.dspUpdate}</button>
+</window>

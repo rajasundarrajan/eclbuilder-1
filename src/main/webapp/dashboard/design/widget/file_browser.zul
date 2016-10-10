@@ -1,0 +1,59 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<tabbox  apply="org.hpccsystems.dsp.dashboard.controller.FileBrowserController" 
+	class="borderlessTabbox" vflex="1" hflex="1">
+	<tabs visible="false">
+		<tab id="browserTree"/>
+		<tab id="importFileAlternate"/>
+	</tabs>
+	<tabpanels>
+		<tabpanel vflex="1" hflex="1">
+
+			<tree id="fileTree" vflex="1" sclass="file-browser-item">			
+				<treecols>
+					<treecol>
+						<label value="${labels.selectaFile}"></label>
+						<hlayout style="float:right">
+							<vlayout visible="false" id="sprayProgressContainer">
+								<label>${labels.uploading}</label>
+							</vlayout>
+							<button id="sprayStatus" visible="false"></button>
+							<button iconSclass="z-icon-refresh" id="refreshFileDashboard" label="${labels.dspRefresh}" sclass="import-btn" autodisable="true"></button>
+							<button iconSclass="z-icon-plus" if="${sessionScope.user.getPermission().getRampsPermission().canImportFile()}" id="newDataSource" label="${labels.importFile}" sclass="import-btn" autodisable="true"></button>
+						</hlayout>		
+					</treecol>
+				</treecols>
+				<auxhead id="emptyMessage" visible="false" sclass="no-file-found">
+					<auxheader colspan="2">
+						<hbox hflex="1" pack="center">
+							<label id="emptyMsglabel"></label>
+						</hbox>
+					</auxheader>
+				</auxhead>
+				
+				<treefoot>
+					<treefooter>
+						<grid>
+							<columns>
+								<column width="200px"></column>
+								<column></column>
+							</columns>
+							<rows>
+								<row>
+									<label value="${labels.logicalFile}" />
+									<hlayout>
+										<textbox hflex="1" id="selectedFile" placeholder="${labels.chooseFile}" readonly="true" style="font-weight:600;"/>
+										<button label="${labels.fileContentsPreview}" id="filePreview" disabled="true" visible="false"/>
+									</hlayout>
+								</row>
+							</rows>
+						</grid>
+					</treefooter>
+				</treefoot>
+			</tree>
+
+		</tabpanel>
+		<tabpanel vflex="1" hflex="1">
+			<include id="importInclude" vflex="1" hflex="1"/>
+		</tabpanel>
+	</tabpanels>
+</tabbox>

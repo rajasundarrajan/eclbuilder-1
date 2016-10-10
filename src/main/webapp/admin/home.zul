@@ -1,0 +1,99 @@
+<div apply="org.hpccsystems.dsp.admin.controller.HomeController" vflex="1" sclass="adminHome">
+	<tabbox vflex="1" hflex="1">
+		<tabs>
+			<tab iconSclass="fa fa-connectdevelop" id="DSP">${labels.dsp}</tab>
+			<tab id="rampsTab" iconSclass="fa fa-cubes" sclass="rightBorder">${labels.dspComposition}</tab>
+			<tab id="dashboardTab" iconSclass="fa fa-pie-chart" sclass="rightBorder">${labels.admDashboard}</tab>
+			<tab id="eclBuilder"   sclass="rightBorder"  style="padding-left: 15px" >${labels.eclBuilder}</tab>
+		</tabs>
+		<tabpanels>
+				<tabpanel id="dspTabpanel" sclass="dspTabpanel">
+					<tabbox vflex="1" hflex="1" orient="left">
+						<tabs width="200px" sclass="dspTabs">
+							<tab id="mbsTab" iconSclass="fa fa-users"> ${labels.admMenuMBS}</tab>
+							<tab id="persTab" iconSclass="fa fa-desktop">${labels.admMenuPerspectives}</tab>
+							<tab id="permissionTab" iconSclass="fa fa-shield">${labels.admMenuPermissions}</tab>
+							<tab id="repoTab" iconSclass="fa fa-database">${labels.admMenuRepositories}</tab>
+							<tab  id="clustersTab" iconSclass="fa fa-server">${labels.admMenuClusters}</tab>
+							<tab  id="appLogTab" iconSclass="fa fa-file-code-o">${labels.admMenuApplog}</tab>
+							<tab  id="userLogTab" iconSclass="fa fa-file-text-o">${labels.admMenuUserlog}</tab>
+							<tab  id="webappTab" iconSclass="fa fa-wrench">${labels.admMenuAppConfig}</tab>
+							<tab id="processTab" iconSclass="fa fa-tachometer" >${labels.admMenuProcesses}</tab>
+							<tab id="migrationTab" iconSclass="fa fa-tachometer">${labels.admMigration}</tab>
+							<tab id="dependenciesTab" iconSclass="fa fa-flask" sclass="bottomBorder">${labels.dependecies}</tab>
+						</tabs>
+						<tabpanels>
+							<tabpanel id="mbsTabpanel" sclass="mbsTabpanel">
+							<panel vflex="1">
+								<caption label="${labels.admMBSAuthorizedUser}">
+								</caption>
+								<panelchildren>
+								<grid id="mbsUserGrid" vflex="1" hflex="1">
+									<columns>
+										<column label="${labels.dspUserName}"></column>
+										<column label="${labels.admGroups}"></column>
+									</columns>
+									<rows id="mbsUserRows">
+										
+									</rows>
+								</grid>
+								</panelchildren>
+							</panel>
+								
+							</tabpanel>
+							<tabpanel id="perspectivesTabpanel">
+								<include id="persInclude" />		
+							</tabpanel>
+							<tabpanel>
+								<include id="permissionInclude"></include>
+							</tabpanel>
+							<tabpanel id="reposTabpanel">
+								<include id="reposInclude" />		
+							</tabpanel>
+							<tabpanel >
+							<include id="clusterInclude"/>	
+							</tabpanel>
+							<tabpanel>
+								<include id="appLogInclude"/>		
+							</tabpanel>
+							
+							<tabpanel>
+								<include id="userLogInclude"/>
+							</tabpanel>
+							<tabpanel>
+								<include id="webAppInclude"/>
+							</tabpanel>
+							<tabpanel>
+								<include id="processInclude"></include>
+							</tabpanel>
+							<tabpanel>
+								<panel vflex="1">
+								<caption label="${labels.admMigration}">
+								</caption>
+								<panelchildren>									
+									<vbox vflex="1" pack="start" align="center" sclass="migrateTable">
+										<cell align="center">
+											<button id ="migratebtn" label="${labels.migrate}" iconSclass="fa fa-recycle" ></button>
+										</cell>	
+										<cell sclass="migrateTableLabel">	
+											<label id="migrationStatus" pre="true" multiline="true" ></label>
+										</cell>								
+									</vbox>
+								</panelchildren>
+							</panel>
+							</tabpanel>
+							<tabpanel>
+								<include id="dependenciesInclude" />
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</tabpanel>
+				<tabpanel sclass="rampsTabpanel">
+					<include id="uiFeaturesInclude"></include>
+				</tabpanel>
+				<tabpanel>
+					<include id="dashboardUIfeatures"></include>
+				</tabpanel>
+		</tabpanels>
+	</tabbox>
+</div>

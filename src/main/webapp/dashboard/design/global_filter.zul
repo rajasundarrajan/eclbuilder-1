@@ -1,0 +1,33 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window
+	apply="org.hpccsystems.dsp.dashboard.controller.GlobalFilterController"
+	closable="true" vflex="1" hflex="1" id="globalFilterContainer" sclass="interactivityWindow">
+	<caption iconSclass="fa fa-filter"
+		label="${labels.globalFilter}">
+	</caption>
+	<vlayout vflex="1">
+			<label sclass="notifyLabel-Filter">
+				${labels.globalFilterNote}
+			</label>
+			
+			<hlayout vflex="1" hflex="1">
+				<tree vflex="1" hflex="1" id="fileTree">
+					<treecols>
+						<treecol label="${labels.files}">										
+						</treecol>
+					</treecols>
+				</tree>
+			
+				<listbox vflex="1" hflex="1" id="droppedFilterbox" droppable="true">
+					<listhead>
+						<listheader label="${labels.existingFilters}"></listheader>
+					</listhead>								
+				</listbox>				
+			</hlayout>
+			
+			<hbox hflex="1" pack="end">
+				<button label="${labels.dspSave}" iconSclass="z-icon-save" autodisable="true" id="saveGlobalFilter" sclass="wizard-btn" />
+				<button label="${labels.cancel}" iconSclass="fa fa-times" autodisable="true" id="cancel" sclass="wizard-btn" />
+			</hbox>
+	</vlayout>
+</window>

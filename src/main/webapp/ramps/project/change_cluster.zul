@@ -1,0 +1,35 @@
+<?init class="org.hpccsystems.dsp.ramps.controller.AuthenticatorInit"?>
+<window id="changeConfigContainer" title="${labels.hpccConnection}" vflex="1" hflex="1" apply="org.hpccsystems.dsp.ramps.controller.ChangeClusterController" closable="true">
+<vbox >
+<panel width="400px" >
+	<panelchildren>
+		<vbox vflex="1" spacing="1em">
+			<vbox>
+				<label value="${labels.hpccConnection}" />
+				<combobox id="connectionListRamps"
+					placeholder="${labels.chooseConnection}" readonly="true"
+					style="width:200px;" >
+				</combobox>
+			</vbox>
+			<vbox>
+				<label value="${labels.dspThorCluster}" />
+				<combobox id="thorClusterRamps" readonly="true"
+					style="width:200px;">
+				</combobox>
+			</vbox>
+			<vbox>
+				<label value="${labels.roxieCluster}" />
+				<combobox id="roxieClusterRamps" readonly="true"
+					style="width:200px;">
+				</combobox>
+			</vbox>
+		</vbox>
+	</panelchildren>
+	</panel>
+	<space></space>
+	<hbox style="float:right">
+	<button iconSclass="fa fa-floppy-o" label="${labels.dspSave}" id ="save"></button>
+	<button iconSclass="fa fa-times" label="${labels.cancel}" id ="cancel" > </button>
+	</hbox>
+	</vbox>
+</window>
